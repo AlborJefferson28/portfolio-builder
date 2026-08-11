@@ -11,15 +11,18 @@ export default function DashboardPage() {
   const [portfolios, setPortfolios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
+      setError('');
       const { data, error } = await supabase
         .from('portfolios')
         .select('id, title, slug, published, updated_at')
         .order('updated_at', { ascending: false });
       if (!cancelled && !error) setPortfolios(data);
+      if (!cancelled && error) setError('No se pudo cargar tus portfolios.');
       if (!cancelled) setLoading(false);
     })();
     return () => { cancelled = true; };
@@ -27,6 +30,7 @@ export default function DashboardPage() {
 
   const handleCreate = async () => {
     setCreating(true);
+    setError('');
     const initial = getInitialData();
     const { data, error } = await supabase
       .from('portfolios')
@@ -40,11 +44,15 @@ export default function DashboardPage() {
       .single();
     setCreating(false);
     if (!error && data) navigate(`/editor/${data.id}`);
+    if (error) setError('No se pudo crear el portfolio.');
   };
 
   const handleDelete = async (id) => {
+    if (!window.confirm('¿Eliminar este portfolio? Esta acción no se puede deshacer.')) return;
+    setError('');
     const { error } = await supabase.from('portfolios').delete().eq('id', id);
     if (!error) setPortfolios((prev) => prev.filter((p) => p.id !== id));
+    if (error) setError('No se pudo eliminar el portfolio.');
   };
 
   const handleSignOut = async () => {
@@ -62,6 +70,7 @@ export default function DashboardPage() {
       <main className="dash-main">
         <h1 className="adm-panel-title">Tus portfolios</h1>
         <p className="adm-panel-desc">Crea, edita o publica tus portfolios.</p>
+        {error && <p className="adm-error">{error}</p>}
         <button type="button" className="adm-btn-primary" onClick={handleCreate} disabled={creating}>
           <Plus size={14} /> {creating ? 'Creando…' : 'Nuevo portfolio'}
         </button>
