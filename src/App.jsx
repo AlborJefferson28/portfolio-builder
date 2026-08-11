@@ -1,3 +1,8 @@
+import { getInitialData } from './data/initialData.js';
+import PortfolioRenderer from './components/public/PortfolioRenderer.jsx';
+import './styles/global.css';
+
 export default function App() {
-  return <div>Portfolio Builder — en construcción</div>;
+  const data = getInitialData();
+  return <PortfolioRenderer sections={data.sections} theme={data.theme} />;
 }
