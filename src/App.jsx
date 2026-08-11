@@ -9,7 +9,7 @@ import PublicPortfolioPage from './pages/PublicPortfolioPage.jsx';
 
 function RootRedirect() {
   const { user, loading } = useAuth();
-  if (loading) return <div className="adm-loading-screen">Cargando…</div>;
+  if (loading) return <div className="adm-shell adm-loading-screen">Cargando…</div>;
   return <Navigate to={user ? '/dashboard' : '/login'} replace />;
 }
 

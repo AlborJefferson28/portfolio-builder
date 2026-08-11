@@ -108,10 +108,10 @@ export default function EditorPage() {
     return true;
   };
 
-  if (loadState === 'loading') return <div className="adm-loading-screen">Cargando…</div>;
+  if (loadState === 'loading') return <div className="adm-shell adm-loading-screen">Cargando…</div>;
   if (loadState === 'notfound') {
     return (
-      <div className="adm-loading-screen" style={{ flexDirection: 'column', gap: 12 }}>
+      <div className="adm-shell adm-loading-screen" style={{ flexDirection: 'column', gap: 12 }}>
         <p>No encontramos este portfolio.</p>
         <Link className="adm-btn-primary" to="/dashboard">Volver al panel</Link>
       </div>
