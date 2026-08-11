@@ -149,68 +149,68 @@ html, body { margin: 0; padding: 0; }
 .adm-footer { text-align: center; padding: 14px; }
 
 .adm-modal-overlay {
-  position: fixed; inset: 0; background: rgba(28, 24, 16, 0.45); display: flex;
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); display: flex;
   align-items: center; justify-content: center; padding: 20px; z-index: 50;
 }
 .adm-modal {
-  background: #fff; border-radius: 14px; padding: 28px; max-width: 400px; width: 100%;
+  background: var(--a-panel); border: 1px solid var(--a-border); border-radius: 14px; padding: 28px; max-width: 400px; width: 100%;
   position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2); font-family: var(--font-body);
 }
 .adm-modal-close {
   position: absolute; top: 14px; right: 14px; background: none; border: none;
-  color: #8A8272; cursor: pointer; padding: 4px; display: flex;
+  color: var(--a-muted); cursor: pointer; padding: 4px; display: flex;
 }
-.adm-modal-title { font-family: var(--font-display); font-size: 19px; margin: 0 0 8px; }
-.adm-modal-desc { font-size: 13px; color: #8A8272; margin: 0 0 16px; line-height: 1.5; }
-.adm-slug-preview { font-family: var(--font-mono); font-size: 12px; color: #8A8272; margin: 8px 0 0; }
+.adm-modal-title { font-family: var(--font-display); font-size: 19px; margin: 0 0 8px; color: var(--a-text); }
+.adm-modal-desc { font-size: 13px; color: var(--a-muted); margin: 0 0 16px; line-height: 1.5; }
+.adm-slug-preview { font-family: var(--font-mono); font-size: 12px; color: var(--a-muted); margin: 8px 0 0; }
 .adm-error { font-size: 12px; color: #B84C3A; margin: 6px 0 0; }
 .adm-copy-row {
-  display: flex; align-items: center; gap: 8px; background: #FAF8F4; border: 1px solid #E7E2D8;
+  display: flex; align-items: center; gap: 8px; background: var(--a-bg); border: 1px solid var(--a-border);
   border-radius: 8px; padding: 8px 10px; margin-bottom: 18px;
 }
 .adm-code { font-family: var(--font-mono); font-size: 13px; flex: 1; overflow-x: auto; white-space: nowrap; }
 .adm-modal-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
 .adm-modal .adm-btn-primary { margin-top: 6px; width: 100%; justify-content: center; }
 
-/* ---------- Auth / dashboard chrome (nuevo) ---------- */
+/* ---------- Auth / dashboard chrome ---------- */
 .adm-loading-screen {
   min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-body); color: #8A8272; background: #FAF8F4;
+  font-family: var(--font-body); color: var(--a-muted); background: var(--a-bg);
 }
 .auth-shell {
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  background: #FAF8F4; font-family: var(--font-body); padding: 20px;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
 }
 .auth-card {
-  background: #fff; border: 1px solid #E7E2D8; border-radius: 14px; padding: 32px;
-  max-width: 380px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  background: var(--a-panel); border: 1px solid var(--a-border); border-radius: 14px; padding: 32px;
+  max-width: 380px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.06); position: relative;
 }
-.auth-title { font-family: var(--font-display); font-size: 24px; margin: 0 0 6px; }
-.auth-subtitle { font-size: 13.5px; color: #8A8272; margin: 0 0 22px; }
+.auth-title { font-family: var(--font-display); font-size: 24px; margin: 0 0 6px; color: var(--a-text); }
+.auth-subtitle { font-size: 13.5px; color: var(--a-muted); margin: 0 0 22px; }
 .auth-form { display: flex; flex-direction: column; gap: 14px; }
-.auth-divider { display: flex; align-items: center; gap: 10px; margin: 18px 0; color: #8A8272; font-size: 12px; }
-.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: #E7E2D8; }
-.auth-switch { text-align: center; margin-top: 16px; font-size: 13px; color: #8A8272; }
+.auth-divider { display: flex; align-items: center; gap: 10px; margin: 18px 0; color: var(--a-muted); font-size: 12px; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--a-border); }
+.auth-switch { text-align: center; margin-top: 16px; font-size: 13px; color: var(--a-muted); }
 .auth-btn-google {
   width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
-  border: 1px solid #E7E2D8; background: #fff; padding: 9px 16px; border-radius: 7px;
+  border: 1px solid var(--a-border); background: var(--a-panel); color: var(--a-text); padding: 9px 16px; border-radius: 7px;
   font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-body);
 }
-.auth-btn-google:hover { background: #FAF8F4; }
+.auth-btn-google:hover { background: var(--a-bg); }
+.auth-theme-toggle { position: absolute; top: 14px; right: 14px; }
 
-.dash-shell { min-height: 100vh; background: #FAF8F4; font-family: var(--font-body); }
 .dash-header {
   display: flex; align-items: center; justify-content: space-between; padding: 14px 20px;
-  border-bottom: 1px solid #E7E2D8; background: #fff;
+  border-bottom: 1px solid var(--a-border); background: var(--a-panel);
 }
+.dash-header-actions { display: flex; align-items: center; gap: 8px; }
 .dash-main { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
 .dash-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 20px; }
 .dash-card {
-  border: 1px solid #E7E2D8; border-radius: 12px; padding: 18px; background: #fff;
+  border: 1px solid var(--a-border); border-radius: 12px; padding: 18px; background: var(--a-panel);
   display: flex; flex-direction: column; gap: 8px;
 }
-.dash-card-title { font-family: var(--font-display); font-size: 17px; margin: 0; }
-.dash-card-meta { font-size: 12px; color: #8A8272; font-family: var(--font-mono); }
+.dash-card-title { font-family: var(--font-display); font-size: 17px; margin: 0; color: var(--a-text); }
+.dash-card-meta { font-size: 12px; color: var(--a-muted); font-family: var(--font-mono); }
 .dash-card-actions { display: flex; gap: 8px; margin-top: 8px; }
 
 /* ---------- Public portfolio render ---------- */
@@ -315,6 +315,19 @@ html, body { margin: 0; padding: 0; }
   text-decoration: none;
 }
 .pf-edit-fab:hover { opacity: 1; }
+
+/* ---------- Admin dark mode ---------- */
+html[data-admin-theme="dark"] .adm-shell {
+  --a-bg: #181818;
+  --a-panel: #212121;
+  --a-border: #333333;
+  --a-text: #EDEDED;
+  --a-muted: #9A9A9A;
+  --a-accent: #D97757;
+  --a-accent-contrast: #FFFFFF;
+}
+html[data-admin-theme="dark"] .adm-tabs button.is-active { background: #3A2C24; color: #F0A480; }
+html[data-admin-theme="dark"] .adm-variant-card.is-active { background: #2A211C; }
 
 @media (max-width: 640px) {
   .adm-main { padding: 20px 14px 50px; }
