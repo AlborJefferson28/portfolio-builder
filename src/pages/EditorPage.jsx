@@ -8,6 +8,7 @@ import ContentTab from '../components/admin/ContentTab.jsx';
 import DesignTab from '../components/admin/DesignTab.jsx';
 import PreviewTab from '../components/admin/PreviewTab.jsx';
 import PublishModal from '../components/admin/PublishModal.jsx';
+import ThemeToggle from '../components/admin/ThemeToggle.jsx';
 import { slugify } from '../utils/slugify.js';
 
 export default function EditorPage() {
@@ -132,6 +133,7 @@ export default function EditorPage() {
           <button className={tab === 'preview' ? 'is-active' : ''} onClick={() => setTab('preview')}><Eye size={14} /> Vista previa</button>
         </nav>
         <div className="adm-header-actions">
+          <ThemeToggle />
           <span className="adm-save-indicator">
             {saveState === 'saving' ? 'Guardando…' : saveState === 'saved' ? 'Guardado' : ''}
           </span>
