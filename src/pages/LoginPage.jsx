@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient.js';
 import { useAuth } from '../context/AuthContext.jsx';
+import ThemeToggle from '../components/admin/ThemeToggle.jsx';
 
 export default function LoginPage() {
   const { user, loading } = useAuth();
@@ -35,8 +36,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="auth-shell">
+    <div className="auth-shell adm-shell">
       <div className="auth-card">
+        <ThemeToggle className="adm-btn-ghost auth-theme-toggle" />
         <h1 className="auth-title">$ portfolio-builder</h1>
         <p className="auth-subtitle">{mode === 'signin' ? 'Inicia sesión para continuar' : 'Crea tu cuenta'}</p>
 
