@@ -42,6 +42,7 @@ export default function EditorPage() {
   // own cleanup — so the autosave effect can tell "we're navigating away"
   // apart from "a normal debounce restart".
   useEffect(() => {
+    isUnmountingRef.current = false;
     return () => { isUnmountingRef.current = true; };
   }, []);
 
