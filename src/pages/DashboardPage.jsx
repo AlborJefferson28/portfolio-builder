@@ -4,6 +4,7 @@ import { Plus, Trash2, Pencil, ExternalLink, LogOut } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { getInitialData } from '../data/initialData.js';
+import ThemeToggle from '../components/admin/ThemeToggle.jsx';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -61,12 +62,15 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="dash-shell">
+    <div className="dash-shell adm-shell">
       <header className="dash-header">
         <div className="adm-brand"><span className="adm-brand-mark">$</span> portfolio-builder</div>
-        <button type="button" className="adm-btn-ghost" onClick={handleSignOut}>
-          <LogOut size={14} /> Cerrar sesión
-        </button>
+        <div className="dash-header-actions">
+          <ThemeToggle />
+          <button type="button" className="adm-btn-ghost" onClick={handleSignOut}>
+            <LogOut size={14} /> Cerrar sesión
+          </button>
+        </div>
       </header>
       <main className="dash-main">
         <h1 className="adm-panel-title">Tus portfolios</h1>
