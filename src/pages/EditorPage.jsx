@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState, useCallback, useRef } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { Layers, FileText, Palette, Eye, ExternalLink, ArrowLeft } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient.js';
+import { useAuth } from '../context/AuthContext.jsx';
 import SectionsTab from '../components/admin/SectionsTab.jsx';
 import ContentTab from '../components/admin/ContentTab.jsx';
 import DesignTab from '../components/admin/DesignTab.jsx';
@@ -11,7 +12,7 @@ import { slugify } from '../utils/slugify.js';
 
 export default function EditorPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [portfolio, setPortfolio] = useState(null);
   const [loadState, setLoadState] = useState('loading');
@@ -19,13 +20,15 @@ export default function EditorPage() {
   const [viewport, setViewport] = useState('desktop');
   const [modalOpen, setModalOpen] = useState(false);
   const [saveState, setSaveState] = useState('idle');
+  const skippedInitialSave = useRef(false);
+  const isUnmountingRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       const { data, error } = await supabase.from('portfolios').select('*').eq('id', id).single();
       if (cancelled) return;
-      if (error || !data) {
+      if (error || !data || data.user_id !== user.id) {
         setLoadState('notfound');
       } else {
         setPortfolio(data);
@@ -33,19 +36,42 @@ export default function EditorPage() {
       }
     })();
     return () => { cancelled = true; };
-  }, [id]);
+  }, [id, user.id]);
+
+  // Runs its cleanup exactly once, at unmount, before the autosave effect's
+  // own cleanup — so the autosave effect can tell "we're navigating away"
+  // apart from "a normal debounce restart".
+  useEffect(() => {
+    return () => { isUnmountingRef.current = true; };
+  }, []);
 
   useEffect(() => {
     if (loadState !== 'ready') return undefined;
+    if (!skippedInitialSave.current) {
+      skippedInitialSave.current = true;
+      return undefined;
+    }
     setSaveState('saving');
     const t = setTimeout(async () => {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('portfolios')
         .update({ sections: portfolio.sections, theme: portfolio.theme, updated_at: new Date().toISOString() })
-        .eq('id', id);
-      setSaveState(error ? 'idle' : 'saved');
+        .eq('id', id)
+        .select('id');
+      setSaveState(!error && data && data.length > 0 ? 'saved' : 'idle');
     }, 600);
-    return () => clearTimeout(t);
+    return () => {
+      clearTimeout(t);
+      if (isUnmountingRef.current) {
+        // Best-effort save of pending edits on navigation away; fire-and-forget.
+        supabase
+          .from('portfolios')
+          .update({ sections: portfolio.sections, theme: portfolio.theme, updated_at: new Date().toISOString() })
+          .eq('id', id)
+          .select('id')
+          .then(() => {});
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [portfolio && portfolio.sections, portfolio && portfolio.theme]);
 
@@ -70,11 +96,12 @@ export default function EditorPage() {
   const setTheme = useCallback((theme) => setPortfolio((p) => ({ ...p, theme })), []);
 
   const handlePublish = async (slug) => {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('portfolios')
       .update({ slug, published: true, published_at: new Date().toISOString() })
-      .eq('id', id);
-    if (error) return false;
+      .eq('id', id)
+      .select('id');
+    if (error || !data || data.length === 0) return false;
     setPortfolio((p) => ({ ...p, slug, published: true }));
     return true;
   };

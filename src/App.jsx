@@ -22,6 +22,7 @@ export default function App() {
           <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
           <Route path="/editor/:id" element={<ProtectedRoute><EditorPage /></ProtectedRoute>} />
           <Route path="/p/:slug" element={<PublicPortfolioPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

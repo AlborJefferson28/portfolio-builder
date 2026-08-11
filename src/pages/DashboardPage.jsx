@@ -20,6 +20,7 @@ export default function DashboardPage() {
       const { data, error } = await supabase
         .from('portfolios')
         .select('id, title, slug, published, updated_at')
+        .eq('user_id', user.id)
         .order('updated_at', { ascending: false });
       if (!cancelled && !error) setPortfolios(data);
       if (!cancelled && error) setError('No se pudo cargar tus portfolios.');
@@ -50,9 +51,9 @@ export default function DashboardPage() {
   const handleDelete = async (id) => {
     if (!window.confirm('¿Eliminar este portfolio? Esta acción no se puede deshacer.')) return;
     setError('');
-    const { error } = await supabase.from('portfolios').delete().eq('id', id);
-    if (!error) setPortfolios((prev) => prev.filter((p) => p.id !== id));
-    if (error) setError('No se pudo eliminar el portfolio.');
+    const { data, error } = await supabase.from('portfolios').delete().eq('id', id).select('id');
+    if (!error && data && data.length > 0) setPortfolios((prev) => prev.filter((p) => p.id !== id));
+    if (error || !data || data.length === 0) setError('No se pudo eliminar el portfolio.');
   };
 
   const handleSignOut = async () => {
