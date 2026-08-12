@@ -36,39 +36,59 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="auth-shell adm-shell">
-      <div className="auth-card">
+    <div className="auth-split adm-shell">
+      <div className="auth-form-pane">
         <ThemeToggle className="adm-btn-ghost auth-theme-toggle" />
-        <h1 className="auth-title">$ portfolio-builder</h1>
-        <p className="auth-subtitle">{mode === 'signin' ? 'Inicia sesión para continuar' : 'Crea tu cuenta'}</p>
+        <div className="auth-form-inner">
+          <h1 className="auth-title">{mode === 'signin' ? 'Bienvenido de vuelta' : 'Creá tu cuenta'}</h1>
+          <p className="auth-subtitle">
+            {mode === 'signin' ? 'Inicia sesión para continuar' : 'Empezá a armar tu portfolio'}
+          </p>
 
-        <button type="button" className="auth-btn-google" onClick={handleGoogle}>
-          Continuar con Google
-        </button>
-
-        <div className="auth-divider">o con email</div>
-
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <label className="adm-field">
-            <span className="adm-field-label">Email</span>
-            <input className="adm-input" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-          </label>
-          <label className="adm-field">
-            <span className="adm-field-label">Contraseña</span>
-            <input className="adm-input" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          {error && <p className="adm-error">{error}</p>}
-          <button type="submit" className="adm-btn-primary" disabled={submitting}>
-            {submitting ? 'Un momento…' : mode === 'signin' ? 'Iniciar sesión' : 'Crear cuenta'}
+          <button type="button" className="auth-btn-google" onClick={handleGoogle}>
+            Continuar con Google
           </button>
-        </form>
 
-        <p className="auth-switch">
-          {mode === 'signin' ? '¿No tienes cuenta? ' : '¿Ya tienes cuenta? '}
-          <button type="button" className="adm-link-btn" onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}>
-            {mode === 'signin' ? 'Crear una' : 'Iniciar sesión'}
-          </button>
-        </p>
+          <div className="auth-divider">o con email</div>
+
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <label className="adm-field">
+              <span className="adm-field-label">Email</span>
+              <input className="adm-input" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            </label>
+            <label className="adm-field">
+              <span className="adm-field-label">Contraseña</span>
+              <input className="adm-input" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            {error && <p className="adm-error">{error}</p>}
+            <button type="submit" className="adm-btn-primary" disabled={submitting}>
+              {submitting ? 'Un momento…' : mode === 'signin' ? 'Iniciar sesión' : 'Crear cuenta'}
+            </button>
+          </form>
+
+          <p className="auth-switch">
+            {mode === 'signin' ? '¿No tienes cuenta? ' : '¿Ya tienes cuenta? '}
+            <button type="button" className="adm-link-btn" onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}>
+              {mode === 'signin' ? 'Crear una' : 'Iniciar sesión'}
+            </button>
+          </p>
+        </div>
+      </div>
+
+      <div className="auth-visual-pane">
+        <div className="auth-portfolio-mock">
+          <div className="apm-avatar" />
+          <div className="apm-line apm-line-name" />
+          <div className="apm-line apm-line-tagline" />
+          <div className="apm-projects">
+            <div className="apm-project apm-project-1" />
+            <div className="apm-project apm-project-2" />
+            <div className="apm-project apm-project-3" />
+          </div>
+          <div className="apm-chip"><span className="apm-dot" /> Publicado</div>
+        </div>
+        <p className="auth-visual-eyebrow">$ tu-portfolio</p>
+        <h2 className="auth-visual-title">Creá y personalizá tu portfolio público en minutos</h2>
       </div>
     </div>
   );
