@@ -250,6 +250,8 @@ html, body { margin: 0; padding: 0; }
 .apm-crow { display: flex; flex-direction: column; gap: 6px; }
 .apm-cline-label { width: 30%; height: 6px; opacity: 0.6; }
 .apm-cinput { height: 10px; border-radius: 4px; background: rgba(247,239,230,0.22); width: 90%; transform-origin: left; transform: scaleX(0); }
+.apm-cinput-1 { animation: apm-cinput-1 18s ease-in-out infinite; }
+.apm-cinput-2 { animation: apm-cinput-2 18s ease-in-out infinite; }
 
 /* Escena 3: Diseño */
 .apm-swatches { display: flex; gap: 12px; }
@@ -258,8 +260,6 @@ html, body { margin: 0; padding: 0; }
 .apm-swatch-2 { background: #7BA88F; animation: apm-swatch-2 18s ease-in-out infinite; }
 .apm-swatch-3 { background: #7C93C4; animation: apm-swatch-3 18s ease-in-out infinite; }
 .apm-dline { width: 50%; margin-top: 4px; opacity: 0.5; }
-.apm-cinput-1 { animation: apm-cinput-1 18s ease-in-out infinite; }
-.apm-cinput-2 { animation: apm-cinput-2 18s ease-in-out infinite; }
 
 /* Escena 4: Vista previa */
 .apm-device {
@@ -273,9 +273,9 @@ html, body { margin: 0; padding: 0; }
 
 /* Escena 5: Publicar */
 .apm-chip {
-  align-self: flex-start; display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--font-mono); font-size: 11px; color: var(--av-muted);
-  border: 1px solid rgba(247,239,230,0.15); border-radius: 999px; padding: 4px 10px; margin-top: 4px;
+  border: 1px solid rgba(247,239,230,0.15); border-radius: 999px; padding: 4px 10px;
 }
 .apm-dot { width: 6px; height: 6px; border-radius: 50%; background: #7BC67E; animation: apm-dot-pulse 1.6s ease-in-out infinite; }
 
