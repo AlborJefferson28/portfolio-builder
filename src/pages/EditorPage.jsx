@@ -66,7 +66,7 @@ export default function EditorPage() {
         .eq('id', id)
         .select('id');
       const saved = !error && data && data.length > 0;
-      setSaveState(saved ? 'saved' : 'idle');
+      setSaveState(saved ? 'saved' : 'error');
       if (saved) setLastSavedAt(new Date());
     }, 600);
     return () => {
@@ -153,8 +153,8 @@ export default function EditorPage() {
         </nav>
         <div className="adm-header-actions">
           <ThemeToggle />
-          <span className="adm-save-indicator">
-            {saveState === 'saving' ? 'Guardando…' : lastSavedAt ? `Guardado ${relativeSavedLabel}` : ''}
+          <span className={`adm-save-indicator${saveState === 'error' ? ' is-error' : ''}`}>
+            {saveState === 'saving' ? 'Guardando…' : saveState === 'error' ? 'Error al guardar' : lastSavedAt ? `Guardado ${relativeSavedLabel}` : ''}
           </span>
           {portfolio.published && (
             <a className="adm-btn-ghost" href={`/p/${portfolio.slug}`} target="_blank" rel="noreferrer">
