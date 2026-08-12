@@ -230,7 +230,11 @@ html, body { margin: 0; padding: 0; }
   opacity: 0;
 }
 .apm-scene-preview, .apm-scene-publish { align-items: center; justify-content: center; }
-.apm-scene-sections { opacity: 1; }
+.apm-scene-sections { animation: apm-scene-sections 18s ease-in-out infinite; }
+.apm-scene-content { animation: apm-scene-content 18s ease-in-out infinite; }
+.apm-scene-design { animation: apm-scene-design 18s ease-in-out infinite; }
+.apm-scene-preview { animation: apm-scene-preview 18s ease-in-out infinite; }
+.apm-scene-publish { animation: apm-scene-publish 18s ease-in-out infinite; }
 
 .apm-line { height: 8px; border-radius: 4px; background: rgba(247,239,230,0.25); }
 
@@ -239,6 +243,8 @@ html, body { margin: 0; padding: 0; }
 .apm-sline { width: 55%; }
 .apm-spill { width: 20px; height: 11px; border-radius: 999px; background: rgba(247,239,230,0.18); flex-shrink: 0; }
 .apm-spill.is-on { background: var(--av-accent-2); }
+.apm-spill-3 { animation: apm-spill-3 18s ease-in-out infinite; }
+.apm-spill-4 { animation: apm-spill-4 18s ease-in-out infinite; }
 
 /* Escena 2: Contenido */
 .apm-crow { display: flex; flex-direction: column; gap: 6px; }
@@ -248,18 +254,22 @@ html, body { margin: 0; padding: 0; }
 /* Escena 3: Diseño */
 .apm-swatches { display: flex; gap: 12px; }
 .apm-swatch { width: 18px; height: 18px; border-radius: 50%; box-shadow: 0 0 0 2px transparent; }
-.apm-swatch-1 { background: var(--av-accent-2); }
-.apm-swatch-2 { background: #7BA88F; }
-.apm-swatch-3 { background: #7C93C4; }
+.apm-swatch-1 { background: var(--av-accent-2); animation: apm-swatch-1 18s ease-in-out infinite; }
+.apm-swatch-2 { background: #7BA88F; animation: apm-swatch-2 18s ease-in-out infinite; }
+.apm-swatch-3 { background: #7C93C4; animation: apm-swatch-3 18s ease-in-out infinite; }
 .apm-dline { width: 50%; margin-top: 4px; opacity: 0.5; }
+.apm-cinput-1 { animation: apm-cinput-1 18s ease-in-out infinite; }
+.apm-cinput-2 { animation: apm-cinput-2 18s ease-in-out infinite; }
 
 /* Escena 4: Vista previa */
 .apm-device {
   width: 92px; border: 1px solid rgba(247,239,230,0.25); border-radius: 14px; padding: 10px 8px;
   display: flex; flex-direction: column; gap: 6px;
 }
-.apm-device-hero { height: 16px; border-radius: 4px; background: rgba(247,239,230,0.3); opacity: 0; }
+.apm-device-hero { height: 16px; border-radius: 4px; background: rgba(247,239,230,0.3); opacity: 0; animation: apm-device-hero 18s ease-in-out infinite; }
 .apm-device-card { height: 20px; border-radius: 4px; background: rgba(247,239,230,0.16); opacity: 0; }
+.apm-device-card-1 { animation: apm-device-card-1 18s ease-in-out infinite; }
+.apm-device-card-2 { animation: apm-device-card-2 18s ease-in-out infinite; }
 
 /* Escena 5: Publicar */
 .apm-chip {
@@ -277,11 +287,144 @@ html, body { margin: 0; padding: 0; }
 /* Indicador de escena */
 .apm-dots { display: flex; gap: 6px; }
 .apm-dot-indicator { width: 5px; height: 5px; border-radius: 50%; background: var(--av-muted); opacity: 0.4; }
-.apm-dot-indicator-1 { opacity: 1; background: var(--av-accent); }
+.apm-dot-indicator-1 { animation: apm-dot-indicator-1 18s ease-in-out infinite; }
+.apm-dot-indicator-2 { animation: apm-dot-indicator-2 18s ease-in-out infinite; }
+.apm-dot-indicator-3 { animation: apm-dot-indicator-3 18s ease-in-out infinite; }
+.apm-dot-indicator-4 { animation: apm-dot-indicator-4 18s ease-in-out infinite; }
+.apm-dot-indicator-5 { animation: apm-dot-indicator-5 18s ease-in-out infinite; }
 
 @media (max-width: 899px) {
   .auth-split { grid-template-columns: 1fr; }
   .auth-visual-pane { display: none; }
+}
+
+@keyframes apm-scene-sections {
+  0% { opacity: 1; }
+  18% { opacity: 1; }
+  20% { opacity: 0; }
+  96% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes apm-scene-content {
+  0%, 18% { opacity: 0; }
+  20% { opacity: 1; }
+  38% { opacity: 1; }
+  40%, 100% { opacity: 0; }
+}
+@keyframes apm-scene-design {
+  0%, 38% { opacity: 0; }
+  40% { opacity: 1; }
+  58% { opacity: 1; }
+  60%, 100% { opacity: 0; }
+}
+@keyframes apm-scene-preview {
+  0%, 58% { opacity: 0; }
+  60% { opacity: 1; }
+  78% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+@keyframes apm-scene-publish {
+  0%, 78% { opacity: 0; }
+  80% { opacity: 1; }
+  94% { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}
+
+@keyframes apm-spill-3 {
+  0%, 8% { background: rgba(247,239,230,0.18); }
+  11%, 20% { background: var(--av-accent-2); }
+  21%, 100% { background: rgba(247,239,230,0.18); }
+}
+@keyframes apm-spill-4 {
+  0%, 14% { background: rgba(247,239,230,0.18); }
+  17%, 20% { background: var(--av-accent-2); }
+  21%, 100% { background: rgba(247,239,230,0.18); }
+}
+
+@keyframes apm-cinput-1 {
+  0%, 24% { transform: scaleX(0); }
+  30%, 40% { transform: scaleX(1); }
+  41%, 100% { transform: scaleX(0); }
+}
+@keyframes apm-cinput-2 {
+  0%, 32% { transform: scaleX(0); }
+  38%, 40% { transform: scaleX(1); }
+  41%, 100% { transform: scaleX(0); }
+}
+
+@keyframes apm-swatch-1 {
+  0%, 40% { box-shadow: 0 0 0 2px transparent; }
+  42%, 47% { box-shadow: 0 0 0 2px var(--av-text); }
+  49%, 100% { box-shadow: 0 0 0 2px transparent; }
+}
+@keyframes apm-swatch-2 {
+  0%, 47% { box-shadow: 0 0 0 2px transparent; }
+  49%, 54% { box-shadow: 0 0 0 2px var(--av-text); }
+  56%, 100% { box-shadow: 0 0 0 2px transparent; }
+}
+@keyframes apm-swatch-3 {
+  0%, 54% { box-shadow: 0 0 0 2px transparent; }
+  56%, 60% { box-shadow: 0 0 0 2px var(--av-text); }
+  62%, 100% { box-shadow: 0 0 0 2px transparent; }
+}
+
+@keyframes apm-device-hero {
+  0%, 62% { opacity: 0; }
+  66%, 78% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+@keyframes apm-device-card-1 {
+  0%, 68% { opacity: 0; }
+  72%, 78% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+@keyframes apm-device-card-2 {
+  0%, 72% { opacity: 0; }
+  76%, 78% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+
+@keyframes apm-dot-indicator-1 {
+  0% { opacity: 1; background: var(--av-accent); }
+  18% { opacity: 1; background: var(--av-accent); }
+  20% { opacity: 0.4; background: var(--av-muted); }
+  96% { opacity: 0.4; background: var(--av-muted); }
+  100% { opacity: 1; background: var(--av-accent); }
+}
+@keyframes apm-dot-indicator-2 {
+  0%, 18% { opacity: 0.4; background: var(--av-muted); }
+  20% { opacity: 1; background: var(--av-accent); }
+  38% { opacity: 1; background: var(--av-accent); }
+  40%, 100% { opacity: 0.4; background: var(--av-muted); }
+}
+@keyframes apm-dot-indicator-3 {
+  0%, 38% { opacity: 0.4; background: var(--av-muted); }
+  40% { opacity: 1; background: var(--av-accent); }
+  58% { opacity: 1; background: var(--av-accent); }
+  60%, 100% { opacity: 0.4; background: var(--av-muted); }
+}
+@keyframes apm-dot-indicator-4 {
+  0%, 58% { opacity: 0.4; background: var(--av-muted); }
+  60% { opacity: 1; background: var(--av-accent); }
+  78% { opacity: 1; background: var(--av-accent); }
+  80%, 100% { opacity: 0.4; background: var(--av-muted); }
+}
+@keyframes apm-dot-indicator-5 {
+  0%, 78% { opacity: 0.4; background: var(--av-muted); }
+  80% { opacity: 1; background: var(--av-accent); }
+  94% { opacity: 1; background: var(--av-accent); }
+  96%, 100% { opacity: 0.4; background: var(--av-muted); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apm-scene { animation: none; opacity: 0; }
+  .apm-scene-publish { opacity: 1; }
+  .apm-spill-3, .apm-spill-4, .apm-cinput-1, .apm-cinput-2,
+  .apm-swatch-1, .apm-swatch-2, .apm-swatch-3,
+  .apm-device-hero, .apm-device-card-1, .apm-device-card-2 { animation: none; }
+  .apm-dot-indicator { animation: none; opacity: 0.4; background: var(--av-muted); }
+  .apm-dot-indicator-5 { opacity: 1; background: var(--av-accent); }
+  .apm-dot { animation: none; opacity: 1; box-shadow: none; }
 }
 
 .dash-header {
