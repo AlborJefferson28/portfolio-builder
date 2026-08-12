@@ -96,6 +96,14 @@ html, body { margin: 0; padding: 0; }
   letter-spacing: 0.06em; color: var(--a-muted); margin: 0 0 14px;
 }
 
+.adm-section-block { background: var(--a-panel); border: 1px solid var(--a-border); border-radius: 10px; overflow: hidden; }
+.adm-section-block .adm-section-row { border: none; border-radius: 0; }
+.adm-section-expand-btn { background: none; border: none; color: var(--a-muted); cursor: pointer; padding: 4px; border-radius: 5px; display: flex; }
+.adm-section-expand-btn:hover { background: var(--a-bg); color: var(--a-text); }
+.adm-section-expand-btn svg { transition: transform var(--a-duration-fast) var(--a-ease); }
+.adm-section-expand-btn svg.is-expanded { transform: rotate(90deg); }
+.adm-section-block-body { padding: 4px 14px 18px; }
+
 .adm-form-grid { display: flex; flex-direction: column; gap: 14px; }
 .adm-field { display: flex; flex-direction: column; gap: 5px; }
 .adm-field-label { font-size: 12.5px; font-weight: 600; color: var(--a-text); }
