@@ -12,7 +12,7 @@ html, body { margin: 0; padding: 0; }
 /* ---------- Admin chrome ---------- */
 .adm-shell {
   --a-bg: #FAF8F4; --a-panel: #FFFFFF; --a-border: #E7E2D8; --a-text: #262019;
-  --a-muted: #8A8272; --a-accent: #D97757; --a-accent-contrast: #FFFFFF;
+  --a-muted: #6B6354; --a-accent: #D97757; --a-accent-contrast: #FFFFFF;
   --a-panel-2: #F1ECE3;
   --a-shadow-sm: 0 1px 3px rgba(38,32,25,0.08);
   --a-shadow-md: 0 8px 20px rgba(38,32,25,0.08);
@@ -451,7 +451,7 @@ html, body { margin: 0; padding: 0; }
   font-size: 13.5px; font-weight: 500; color: var(--a-text); text-decoration: none;
 }
 .adm-sidebar-link.is-active { background: #F4E3D8; color: #A8501F; }
-.adm-sidebar-link.is-disabled { color: var(--a-muted); cursor: default; opacity: 0.6; justify-content: space-between; }
+.adm-sidebar-link.is-disabled { color: var(--a-muted); cursor: default; justify-content: space-between; }
 .adm-sidebar-badge {
   font-family: var(--font-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.03em;
   border: 1px solid var(--a-border); border-radius: 999px; padding: 2px 6px;
