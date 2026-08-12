@@ -178,6 +178,7 @@ html, body { margin: 0; padding: 0; }
   font-family: var(--font-body); color: var(--a-muted); background: var(--a-bg);
 }
 /* ---------- Auth split screen ---------- */
+/* display: grid intencionalmente sobre-escribe el display: flex de .adm-shell por orden de cascada (misma especificidad) */
 .auth-split {
   min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
 }
@@ -228,8 +229,8 @@ html, body { margin: 0; padding: 0; }
   animation: apm-avatar 7s ease-in-out infinite;
 }
 .apm-line { height: 8px; border-radius: 4px; background: rgba(247,239,230,0.25); }
-.apm-line-name { width: 70%; animation: apm-line-name 7s ease-in-out infinite; }
-.apm-line-tagline { width: 45%; height: 6px; animation: apm-line-tagline 7s ease-in-out infinite; }
+.apm-line-name { width: 70%; transform-origin: left; animation: apm-line-name 7s ease-in-out infinite; }
+.apm-line-tagline { width: 45%; height: 6px; transform-origin: left; animation: apm-line-tagline 7s ease-in-out infinite; }
 .apm-projects { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
 .apm-project {
   height: 34px; border-radius: 8px;
@@ -257,14 +258,14 @@ html, body { margin: 0; padding: 0; }
   92% { opacity: 0; transform: scale(0.6); }
 }
 @keyframes apm-line-name {
-  0%, 12% { width: 0; opacity: 0; }
-  20%, 80% { width: 70%; opacity: 1; }
-  90%, 100% { width: 0; opacity: 0; }
+  0%, 12% { transform: scaleX(0); opacity: 0; }
+  20%, 80% { transform: scaleX(1); opacity: 1; }
+  90%, 100% { transform: scaleX(0); opacity: 0; }
 }
 @keyframes apm-line-tagline {
-  0%, 18% { width: 0; opacity: 0; }
-  26%, 80% { width: 45%; opacity: 1; }
-  90%, 100% { width: 0; opacity: 0; }
+  0%, 18% { transform: scaleX(0); opacity: 0; }
+  26%, 80% { transform: scaleX(1); opacity: 1; }
+  90%, 100% { transform: scaleX(0); opacity: 0; }
 }
 @keyframes apm-project-1 {
   0%, 30% { opacity: 0; transform: translateY(10px); background-position: 200% 0; }
@@ -287,11 +288,11 @@ html, body { margin: 0; padding: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .apm-avatar { opacity: 1; transform: scale(1); }
-  .apm-line-name { opacity: 1; width: 70%; }
-  .apm-line-tagline { opacity: 1; width: 45%; }
-  .apm-project { opacity: 1; transform: translateY(0); }
-  .apm-dot { opacity: 1; box-shadow: none; }
+  .apm-avatar { animation: none; opacity: 1; transform: scale(1); }
+  .apm-line-name { animation: none; opacity: 1; transform: scaleX(1); }
+  .apm-line-tagline { animation: none; opacity: 1; transform: scaleX(1); }
+  .apm-project { animation: none; opacity: 1; transform: translateY(0); background-position: 0 0; }
+  .apm-dot { animation: none; opacity: 1; box-shadow: none; }
 }
 
 .dash-header {

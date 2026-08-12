@@ -42,7 +42,7 @@ export default function LoginPage() {
         <div className="auth-form-inner">
           <h1 className="auth-title">{mode === 'signin' ? 'Bienvenido de vuelta' : 'Creá tu cuenta'}</h1>
           <p className="auth-subtitle">
-            {mode === 'signin' ? 'Inicia sesión para continuar' : 'Empezá a armar tu portfolio'}
+            {mode === 'signin' ? 'Iniciá sesión para continuar' : 'Empezá a armar tu portfolio'}
           </p>
 
           <button type="button" className="auth-btn-google" onClick={handleGoogle}>
@@ -67,7 +67,7 @@ export default function LoginPage() {
           </form>
 
           <p className="auth-switch">
-            {mode === 'signin' ? '¿No tienes cuenta? ' : '¿Ya tienes cuenta? '}
+            {mode === 'signin' ? '¿No tenés cuenta? ' : '¿Ya tenés cuenta? '}
             <button type="button" className="adm-link-btn" onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}>
               {mode === 'signin' ? 'Crear una' : 'Iniciar sesión'}
             </button>
@@ -76,7 +76,7 @@ export default function LoginPage() {
       </div>
 
       <div className="auth-visual-pane">
-        <div className="auth-portfolio-mock">
+        <div className="auth-portfolio-mock" aria-hidden="true">
           <div className="apm-avatar" />
           <div className="apm-line apm-line-name" />
           <div className="apm-line apm-line-tagline" />
