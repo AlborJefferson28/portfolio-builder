@@ -13,6 +13,13 @@ html, body { margin: 0; padding: 0; }
 .adm-shell {
   --a-bg: #FAF8F4; --a-panel: #FFFFFF; --a-border: #E7E2D8; --a-text: #262019;
   --a-muted: #8A8272; --a-accent: #D97757; --a-accent-contrast: #FFFFFF;
+  --a-panel-2: #F1ECE3;
+  --a-shadow-sm: 0 1px 3px rgba(38,32,25,0.08);
+  --a-shadow-md: 0 8px 20px rgba(38,32,25,0.08);
+  --a-shadow-lg: 0 20px 50px rgba(38,32,25,0.16);
+  --a-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --a-duration-fast: 150ms;
+  --a-duration-base: 220ms;
   min-height: 100vh; background: var(--a-bg); color: var(--a-text);
   font-family: var(--font-body); display: flex; flex-direction: column;
 }
@@ -554,6 +561,10 @@ html[data-admin-theme="dark"] .adm-shell {
   --a-muted: #9A9A9A;
   --a-accent: #D97757;
   --a-accent-contrast: #FFFFFF;
+  --a-panel-2: #2A2A2A;
+  --a-shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --a-shadow-md: 0 8px 20px rgba(0,0,0,0.35);
+  --a-shadow-lg: 0 20px 50px rgba(0,0,0,0.5);
 }
 html[data-admin-theme="dark"] .adm-tabs button.is-active { background: #3A2C24; color: #F0A480; }
 html[data-admin-theme="dark"] .adm-variant-card.is-active { background: #2A211C; }
