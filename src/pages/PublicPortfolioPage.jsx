@@ -24,13 +24,19 @@ export default function PublicPortfolioPage() {
       if (cancelled) return;
       if (error || !data) {
         setState('notfound');
-      } else {
-        setPortfolio(data);
-        setState('ready');
+        return;
+      }
+      setPortfolio(data);
+      setState('ready');
+      const isOwnerView = user && user.id === data.user_id;
+      const viewedKey = `pb-viewed-${data.id}`;
+      if (!isOwnerView && !sessionStorage.getItem(viewedKey)) {
+        sessionStorage.setItem(viewedKey, '1');
+        supabase.rpc('increment_portfolio_views', { portfolio_id: data.id });
       }
     })();
     return () => { cancelled = true; };
-  }, [slug]);
+  }, [slug, user]);
 
   if (state === 'loading') {
     return (
