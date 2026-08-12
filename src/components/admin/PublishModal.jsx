@@ -7,6 +7,7 @@ export default function PublishModal({ open, onClose, defaultSlug, publishedSlug
   const [view, setView] = useState(publishedSlug ? 'success' : 'edit');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(false);
+  const [entered, setEntered] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -15,6 +16,12 @@ export default function PublishModal({ open, onClose, defaultSlug, publishedSlug
       setError(false);
     }
   }, [open, publishedSlug, defaultSlug]);
+
+  useEffect(() => {
+    if (!open) { setEntered(false); return undefined; }
+    const raf = requestAnimationFrame(() => setEntered(true));
+    return () => cancelAnimationFrame(raf);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -36,8 +43,8 @@ export default function PublishModal({ open, onClose, defaultSlug, publishedSlug
   };
 
   return (
-    <div className="adm-modal-overlay" onClick={onClose}>
-      <div className="adm-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
+    <div className={`adm-modal-overlay${entered ? ' is-entered' : ''}`} onClick={onClose}>
+      <div className={`adm-modal${entered ? ' is-entered' : ''}`} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
         <button className="adm-modal-close" onClick={onClose} aria-label="Cerrar"><X size={18} /></button>
         {view === 'success' ? (
           <>

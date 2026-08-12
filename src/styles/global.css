@@ -149,7 +149,7 @@ html, body { margin: 0; padding: 0; }
 .adm-preview-frame {
   width: 100%; max-width: 900px; border: 1px solid var(--a-border); border-radius: 14px;
   overflow: hidden; background: #fff; max-height: 640px; overflow-y: auto;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  box-shadow: var(--a-shadow-md);
 }
 .adm-preview-frame.is-mobile { max-width: 380px; }
 
@@ -158,11 +158,16 @@ html, body { margin: 0; padding: 0; }
 .adm-modal-overlay {
   position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); display: flex;
   align-items: center; justify-content: center; padding: 20px; z-index: 50;
+  opacity: 0; transition: opacity var(--a-duration-base) var(--a-ease);
 }
+.adm-modal-overlay.is-entered { opacity: 1; }
 .adm-modal {
   background: var(--a-panel); border: 1px solid var(--a-border); border-radius: 14px; padding: 28px; max-width: 400px; width: 100%;
-  position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2); font-family: var(--font-body);
+  position: relative; box-shadow: var(--a-shadow-lg); font-family: var(--font-body);
+  opacity: 0; transform: scale(0.97);
+  transition: opacity var(--a-duration-base) var(--a-ease), transform var(--a-duration-base) var(--a-ease);
 }
+.adm-modal.is-entered { opacity: 1; transform: scale(1); }
 .adm-modal-close {
   position: absolute; top: 14px; right: 14px; background: none; border: none;
   color: var(--a-muted); cursor: pointer; padding: 4px; display: flex;
@@ -444,7 +449,9 @@ html, body { margin: 0; padding: 0; }
 .dash-card {
   border: 1px solid var(--a-border); border-radius: 12px; padding: 18px; background: var(--a-panel);
   display: flex; flex-direction: column; gap: 8px;
+  transition: transform var(--a-duration-base) var(--a-ease), box-shadow var(--a-duration-base) var(--a-ease);
 }
+.dash-card:hover { transform: translateY(-2px); box-shadow: var(--a-shadow-md); }
 .dash-card-title { font-family: var(--font-display); font-size: 17px; margin: 0; color: var(--a-text); }
 .dash-card-meta { font-size: 12px; color: var(--a-muted); font-family: var(--font-mono); }
 .dash-card-actions { display: flex; gap: 8px; margin-top: 8px; }
