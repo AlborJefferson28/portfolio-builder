@@ -7,9 +7,10 @@ import PortfolioRenderer from '../components/public/PortfolioRenderer.jsx';
 
 export default function PublicPortfolioPage() {
   const { slug } = useParams();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [state, setState] = useState('loading');
   const [portfolio, setPortfolio] = useState(null);
+  const userId = user ? user.id : null;
 
   useEffect(() => {
     let cancelled = false;
@@ -28,7 +29,8 @@ export default function PublicPortfolioPage() {
       }
       setPortfolio(data);
       setState('ready');
-      const isOwnerView = user && user.id === data.user_id;
+      if (authLoading) return;
+      const isOwnerView = userId === data.user_id;
       const viewedKey = `pb-viewed-${data.id}`;
       if (!isOwnerView && !sessionStorage.getItem(viewedKey)) {
         sessionStorage.setItem(viewedKey, '1');
@@ -36,7 +38,7 @@ export default function PublicPortfolioPage() {
       }
     })();
     return () => { cancelled = true; };
-  }, [slug, user]);
+  }, [slug, userId, authLoading]);
 
   if (state === 'loading') {
     return (
