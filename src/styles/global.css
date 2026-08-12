@@ -35,6 +35,7 @@ html, body { margin: 0; padding: 0; }
   display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: none;
   background: transparent; color: var(--a-muted); font-size: 13px; font-weight: 500;
   border-radius: 7px; cursor: pointer; font-family: var(--font-body);
+  transition: background var(--a-duration-fast) var(--a-ease), color var(--a-duration-fast) var(--a-ease);
 }
 .adm-tabs button:hover { background: var(--a-bg); color: var(--a-text); }
 .adm-tabs button.is-active { background: #F4E3D8; color: #A8501F; }
