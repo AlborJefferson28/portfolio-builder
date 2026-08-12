@@ -10,6 +10,9 @@ import PreviewTab from '../components/admin/PreviewTab.jsx';
 import PublishModal from '../components/admin/PublishModal.jsx';
 import ThemeToggle from '../components/admin/ThemeToggle.jsx';
 import { slugify } from '../utils/slugify.js';
+import { formatRelativeTime } from '../utils/formatRelativeTime.js';
+
+const TAB_LABELS = { sections: 'Secciones', content: 'Contenido', design: 'Diseño', preview: 'Vista previa' };
 
 export default function EditorPage() {
   const { id } = useParams();
@@ -21,6 +24,8 @@ export default function EditorPage() {
   const [viewport, setViewport] = useState('desktop');
   const [modalOpen, setModalOpen] = useState(false);
   const [saveState, setSaveState] = useState('idle');
+  const [lastSavedAt, setLastSavedAt] = useState(null);
+  const [relativeSavedLabel, setRelativeSavedLabel] = useState('');
   const skippedInitialSave = useRef(false);
   const isUnmountingRef = useRef(false);
 
@@ -60,7 +65,9 @@ export default function EditorPage() {
         .update({ sections: portfolio.sections, theme: portfolio.theme, updated_at: new Date().toISOString() })
         .eq('id', id)
         .select('id');
-      setSaveState(!error && data && data.length > 0 ? 'saved' : 'idle');
+      const saved = !error && data && data.length > 0;
+      setSaveState(saved ? 'saved' : 'idle');
+      if (saved) setLastSavedAt(new Date());
     }, 600);
     return () => {
       clearTimeout(t);
@@ -76,6 +83,15 @@ export default function EditorPage() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [portfolio && portfolio.sections, portfolio && portfolio.theme]);
+
+  useEffect(() => {
+    if (!lastSavedAt) return undefined;
+    setRelativeSavedLabel(formatRelativeTime(lastSavedAt));
+    const interval = setInterval(() => {
+      setRelativeSavedLabel(formatRelativeTime(lastSavedAt));
+    }, 20000);
+    return () => clearInterval(interval);
+  }, [lastSavedAt]);
 
   const updateSectionContent = useCallback((sectionId, content) => {
     setPortfolio((p) => ({ ...p, sections: p.sections.map((s) => (s.id === sectionId ? { ...s, content } : s)) }));
@@ -124,8 +140,11 @@ export default function EditorPage() {
   return (
     <div className="adm-shell">
       <header className="adm-header">
-        <Link to="/dashboard" className="adm-btn-ghost" aria-label="Volver al panel"><ArrowLeft size={14} /></Link>
-        <div className="adm-brand"><span className="adm-brand-mark">$</span> {portfolio.title}</div>
+        <Link to="/dashboard" className="adm-btn-ghost" aria-label="Volver al panel"><ArrowLeft size={14} /> Volver al panel</Link>
+        <div className="adm-brand-block">
+          <div className="adm-brand"><span className="adm-brand-mark">$</span> {portfolio.title}</div>
+          <span className="adm-header-context">Editando: {TAB_LABELS[tab]}</span>
+        </div>
         <nav className="adm-tabs">
           <button className={tab === 'sections' ? 'is-active' : ''} onClick={() => setTab('sections')}><Layers size={14} /> Secciones</button>
           <button className={tab === 'content' ? 'is-active' : ''} onClick={() => setTab('content')}><FileText size={14} /> Contenido</button>
@@ -135,7 +154,7 @@ export default function EditorPage() {
         <div className="adm-header-actions">
           <ThemeToggle />
           <span className="adm-save-indicator">
-            {saveState === 'saving' ? 'Guardando…' : saveState === 'saved' ? 'Guardado' : ''}
+            {saveState === 'saving' ? 'Guardando…' : lastSavedAt ? `Guardado ${relativeSavedLabel}` : ''}
           </span>
           {portfolio.published && (
             <a className="adm-btn-ghost" href={`/p/${portfolio.slug}`} target="_blank" rel="noreferrer">

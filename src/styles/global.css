@@ -30,6 +30,8 @@ html, body { margin: 0; padding: 0; }
 }
 .adm-brand { font-family: var(--font-mono); font-size: 13px; color: var(--a-muted); white-space: nowrap; }
 .adm-brand-mark { color: var(--a-accent); margin-right: 4px; }
+.adm-brand-block { display: flex; flex-direction: column; gap: 2px; }
+.adm-header-context { font-size: 11.5px; color: var(--a-muted); font-family: var(--font-mono); }
 .adm-tabs { display: flex; gap: 4px; flex: 1; flex-wrap: wrap; }
 .adm-tabs button {
   display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: none;
