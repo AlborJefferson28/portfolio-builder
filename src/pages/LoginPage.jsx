@@ -76,16 +76,50 @@ export default function LoginPage() {
       </div>
 
       <div className="auth-visual-pane">
-        <div className="auth-portfolio-mock" aria-hidden="true">
-          <div className="apm-avatar" />
-          <div className="apm-line apm-line-name" />
-          <div className="apm-line apm-line-tagline" />
-          <div className="apm-projects">
-            <div className="apm-project apm-project-1" />
-            <div className="apm-project apm-project-2" />
-            <div className="apm-project apm-project-3" />
+        <div className="apm-mock-group">
+          <div className="auth-portfolio-mock" aria-hidden="true">
+            <div className="apm-scene apm-scene-sections">
+              <div className="apm-srow"><span className="apm-spill is-on" /><span className="apm-line apm-sline" /></div>
+              <div className="apm-srow"><span className="apm-spill is-on" /><span className="apm-line apm-sline" /></div>
+              <div className="apm-srow"><span className="apm-spill apm-spill-3" /><span className="apm-line apm-sline" /></div>
+              <div className="apm-srow"><span className="apm-spill apm-spill-4" /><span className="apm-line apm-sline" /></div>
+            </div>
+            <div className="apm-scene apm-scene-content">
+              <div className="apm-crow">
+                <span className="apm-line apm-cline-label" />
+                <span className="apm-cinput apm-cinput-1" />
+              </div>
+              <div className="apm-crow">
+                <span className="apm-line apm-cline-label" />
+                <span className="apm-cinput apm-cinput-2" />
+              </div>
+            </div>
+            <div className="apm-scene apm-scene-design">
+              <div className="apm-swatches">
+                <span className="apm-swatch apm-swatch-1" />
+                <span className="apm-swatch apm-swatch-2" />
+                <span className="apm-swatch apm-swatch-3" />
+              </div>
+              <span className="apm-line apm-dline" />
+            </div>
+            <div className="apm-scene apm-scene-preview">
+              <div className="apm-device">
+                <span className="apm-device-hero" />
+                <span className="apm-device-card apm-device-card-1" />
+                <span className="apm-device-card apm-device-card-2" />
+              </div>
+            </div>
+            <div className="apm-scene apm-scene-publish">
+              <div className="apm-chip"><span className="apm-dot" /> Publicado</div>
+            </div>
           </div>
-          <div className="apm-chip"><span className="apm-dot" /> Publicado</div>
+          <div className="apm-dots" aria-hidden="true">
+            <span className="apm-dot-indicator apm-dot-indicator-1" />
+            <span className="apm-dot-indicator apm-dot-indicator-2" />
+            <span className="apm-dot-indicator apm-dot-indicator-3" />
+            <span className="apm-dot-indicator apm-dot-indicator-4" />
+            <span className="apm-dot-indicator apm-dot-indicator-5" />
+          </div>
         </div>
         <p className="auth-visual-eyebrow">$ tu-portfolio</p>
         <h2 className="auth-visual-title">Creá y personalizá tu portfolio público en minutos</h2>
