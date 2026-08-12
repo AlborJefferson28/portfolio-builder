@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Copy, ExternalLink, X } from 'lucide-react';
 import Field from './Field.jsx';
 
@@ -8,6 +8,8 @@ export default function PublishModal({ open, onClose, defaultSlug, publishedSlug
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(false);
   const [entered, setEntered] = useState(false);
+  const slugInputRef = useRef(null);
+  const successBtnRef = useRef(null);
 
   useEffect(() => {
     if (open) {
@@ -22,6 +24,12 @@ export default function PublishModal({ open, onClose, defaultSlug, publishedSlug
     const raf = requestAnimationFrame(() => setEntered(true));
     return () => cancelAnimationFrame(raf);
   }, [open]);
+
+  useEffect(() => {
+    if (!open || !entered) return;
+    if (view === 'edit') slugInputRef.current && slugInputRef.current.focus();
+    if (view === 'success') successBtnRef.current && successBtnRef.current.focus();
+  }, [open, entered, view]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -57,7 +65,7 @@ export default function PublishModal({ open, onClose, defaultSlug, publishedSlug
               </button>
             </div>
             <div className="adm-modal-actions">
-              <button type="button" className="adm-btn-primary" onClick={() => window.open(shareUrl, '_blank', 'noreferrer')}>
+              <button ref={successBtnRef} type="button" className="adm-btn-primary" onClick={() => window.open(shareUrl, '_blank', 'noreferrer')}>
                 <ExternalLink size={14} /> Ver portfolio publicado
               </button>
               <button type="button" className="adm-link-btn" onClick={() => setView('edit')}>Cambiar dirección</button>
@@ -69,6 +77,7 @@ export default function PublishModal({ open, onClose, defaultSlug, publishedSlug
             <p className="adm-modal-desc">Elige la dirección de tu portfolio. Solo minúsculas, números y guiones.</p>
             <Field label="Dirección">
               <input
+                ref={slugInputRef}
                 className="adm-input"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
