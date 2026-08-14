@@ -51,7 +51,7 @@ html, body { margin: 0; padding: 0; }
 }
 .adm-tabs button:hover { background: var(--a-bg); color: var(--a-text); }
 .adm-tabs button.is-active { background: #F4E3D8; color: #A8501F; }
-.adm-header-actions { display: flex; align-items: center; gap: 10px; }
+.adm-header-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
 .adm-save-indicator { font-size: 12px; color: var(--a-muted); }
 .adm-save-indicator.is-error { color: #B84C3A; }
 
@@ -223,7 +223,12 @@ html, body { margin: 0; padding: 0; }
 .adm-studio-sidebar {
   width: 360px; flex-shrink: 0; border-right: 1px solid var(--a-border);
   background: var(--a-panel); overflow-y: auto; padding: 20px 18px 40px;
+  scrollbar-width: thin; scrollbar-color: var(--a-border) transparent;
 }
+.adm-studio-sidebar::-webkit-scrollbar { width: 8px; }
+.adm-studio-sidebar::-webkit-scrollbar-track { background: transparent; }
+.adm-studio-sidebar::-webkit-scrollbar-thumb { background: var(--a-border); border-radius: 999px; }
+.adm-studio-sidebar::-webkit-scrollbar-thumb:hover { background: var(--a-muted); }
 .adm-studio-subtabs { display: flex; gap: 4px; margin-bottom: 18px; }
 .adm-studio-subtabs button {
   display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: none;
