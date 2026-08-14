@@ -168,6 +168,17 @@ html, body { margin: 0; padding: 0; }
 }
 .adm-image-upload-remove:hover { color: #B84C3A; background: #F6E4DE; }
 .adm-image-upload-error { font-size: 11.5px; color: #B84C3A; display: block; margin-top: 6px; }
+.adm-frame-editor { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.adm-frame-editor-frame {
+  position: relative; overflow: hidden; background: var(--a-bg); border: 1px solid var(--a-border);
+  cursor: grab; touch-action: none;
+}
+.adm-frame-editor-frame:active { cursor: grabbing; }
+.adm-frame-editor-frame img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; }
+.adm-frame-editor-circle { width: 180px; height: 180px; border-radius: 50%; }
+.adm-frame-editor-4-5 { width: 144px; height: 180px; border-radius: 10px; }
+.adm-frame-editor-16-9 { width: 240px; height: 135px; border-radius: 10px; }
+.adm-frame-editor-controls { display: flex; align-items: center; gap: 10px; }
 .adm-range { flex: 1; accent-color: var(--a-accent); }
 .adm-range-value { font-family: var(--font-mono); font-size: 12px; color: var(--a-muted); width: 28px; text-align: right; }
 
