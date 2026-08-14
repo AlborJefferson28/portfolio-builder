@@ -23,6 +23,9 @@ export default function EditorPage() {
   const [saveState, setSaveState] = useState('idle');
   const [lastSavedAt, setLastSavedAt] = useState(null);
   const [relativeSavedLabel, setRelativeSavedLabel] = useState('');
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [titleDraft, setTitleDraft] = useState('');
+  const titleInputRef = useRef(null);
   const skippedInitialSave = useRef(false);
   const isUnmountingRef = useRef(false);
 
@@ -59,7 +62,7 @@ export default function EditorPage() {
     const t = setTimeout(async () => {
       const { data, error } = await supabase
         .from('portfolios')
-        .update({ sections: portfolio.sections, theme: portfolio.theme, updated_at: new Date().toISOString() })
+        .update({ sections: portfolio.sections, theme: portfolio.theme, title: portfolio.title, updated_at: new Date().toISOString() })
         .eq('id', id)
         .select('id');
       const saved = !error && data && data.length > 0;
@@ -72,14 +75,14 @@ export default function EditorPage() {
         // Best-effort save of pending edits on navigation away; fire-and-forget.
         supabase
           .from('portfolios')
-          .update({ sections: portfolio.sections, theme: portfolio.theme, updated_at: new Date().toISOString() })
+          .update({ sections: portfolio.sections, theme: portfolio.theme, title: portfolio.title, updated_at: new Date().toISOString() })
           .eq('id', id)
           .select('id')
           .then(() => {});
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [portfolio && portfolio.sections, portfolio && portfolio.theme]);
+  }, [portfolio && portfolio.sections, portfolio && portfolio.theme, portfolio && portfolio.title]);
 
   useEffect(() => {
     if (!lastSavedAt) return undefined;
@@ -109,6 +112,25 @@ export default function EditorPage() {
     setPortfolio((p) => ({ ...p, sections: p.sections.map((s) => (s.id === sectionId ? { ...s, variant } : s)) }));
   }, []);
   const setTheme = useCallback((theme) => setPortfolio((p) => ({ ...p, theme })), []);
+  const startEditingTitle = () => {
+    setTitleDraft(portfolio.title);
+    setEditingTitle(true);
+  };
+  const commitTitle = () => {
+    const trimmed = titleDraft.trim();
+    if (trimmed && trimmed !== portfolio.title) {
+      setPortfolio((p) => ({ ...p, title: trimmed }));
+    }
+    setEditingTitle(false);
+  };
+  const cancelTitle = () => setEditingTitle(false);
+
+  useEffect(() => {
+    if (editingTitle && titleInputRef.current) {
+      titleInputRef.current.focus();
+      titleInputRef.current.select();
+    }
+  }, [editingTitle]);
 
   const handlePublish = async (slug) => {
     const { data, error } = await supabase
@@ -139,7 +161,24 @@ export default function EditorPage() {
       <header className="adm-header">
         <Link to="/dashboard" className="adm-btn-ghost" aria-label="Volver al panel"><ArrowLeft size={14} /> Volver al panel</Link>
         <div className="adm-brand-block">
-          <div className="adm-brand"><span className="adm-brand-mark">$</span> {portfolio.title}</div>
+          <div className="adm-brand">
+            <span className="adm-brand-mark">$</span>
+            {editingTitle ? (
+              <input
+                ref={titleInputRef}
+                className="adm-brand-input"
+                value={titleDraft}
+                onChange={(e) => setTitleDraft(e.target.value)}
+                onBlur={commitTitle}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') { e.preventDefault(); commitTitle(); }
+                  if (e.key === 'Escape') { e.preventDefault(); cancelTitle(); }
+                }}
+              />
+            ) : (
+              <button type="button" className="adm-brand-btn" onClick={startEditingTitle}>{portfolio.title}</button>
+            )}
+          </div>
         </div>
         <div className="adm-header-actions">
           <ThemeToggle />
