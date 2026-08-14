@@ -702,8 +702,9 @@ html, body { margin: 0; padding: 0; }
   background: var(--p-accent-soft); color: var(--p-accent);
 }
 .pf-project-link { font-size: 12.5px; color: var(--p-accent); text-decoration: none; margin-top: 4px; }
-.pf-project-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; }
-.pf-project-row .pf-project-image { max-width: 220px; margin-bottom: 6px; }
+.pf-project-image-frame { width: 100%; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; }
+.pf-project-image-frame .pf-project-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pf-project-row .pf-project-image-frame { max-width: 220px; margin-bottom: 6px; }
 
 .pf-projects-list { display: flex; flex-direction: column; }
 .pf-project-row { display: grid; grid-template-columns: 50px 1fr; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--p-border); }
