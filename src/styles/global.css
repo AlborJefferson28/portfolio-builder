@@ -220,14 +220,20 @@ html, body { margin: 0; padding: 0; }
 .adm-studio-subtabs button.is-active { background: #F4E3D8; color: #A8501F; }
 
 .adm-studio-preview {
-  flex: 1; min-width: 0; overflow-y: auto; background: var(--a-bg); padding: 28px 24px;
+  flex: 1; min-width: 0; overflow: hidden; background: var(--a-bg); padding: 28px 24px;
+  display: flex; flex-direction: column;
 }
-.adm-studio-preview .adm-preview-frame { max-height: none; overflow-y: visible; }
+.adm-studio-preview .adm-preview-wrap { flex: 1; min-height: 0; width: 100%; }
+.adm-studio-preview .adm-device-frame { flex: 1; min-height: 0; }
+.adm-studio-preview .adm-preview-frame { max-height: none; flex: 1; min-height: 0; overflow-y: auto; }
 
 @media (max-width: 900px) {
   .adm-studio-body { display: block; min-height: auto; }
   .adm-studio-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--a-border); overflow-y: visible; }
-  .adm-studio-preview { overflow-y: visible; }
+  .adm-studio-preview { display: block; overflow: visible; }
+  .adm-studio-preview .adm-preview-wrap { flex: none; }
+  .adm-studio-preview .adm-device-frame { flex: none; }
+  .adm-studio-preview .adm-preview-frame { flex: none; max-height: none; overflow-y: visible; }
 }
 
 .adm-footer { text-align: center; padding: 14px; }
