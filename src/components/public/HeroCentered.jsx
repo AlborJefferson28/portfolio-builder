@@ -1,11 +1,20 @@
 import { initials } from '../../utils/initials.js';
 
 export default function HeroCentered({ content }) {
+  const pos = content.photoPosition || { x: 50, y: 50 };
+  const zoom = content.photoZoom || 1;
   return (
     <section className="pf-section pf-hero pf-hero-centered">
       <p className="pf-eyebrow">// hola, soy</p>
       {content.photoUrl ? (
-        <img src={content.photoUrl} alt={content.name} className="pf-hero-photo" />
+        <div className="pf-hero-photo-frame">
+          <img
+            src={content.photoUrl}
+            alt={content.name}
+            className="pf-hero-photo"
+            style={{ objectPosition: `${pos.x}% ${pos.y}%`, transform: `scale(${zoom})` }}
+          />
+        </div>
       ) : (
         <div className="pf-hero-avatar" aria-hidden="true">{initials(content.name)}</div>
       )}
