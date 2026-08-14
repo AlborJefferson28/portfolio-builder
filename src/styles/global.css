@@ -220,7 +220,7 @@ html, body { margin: 0; padding: 0; }
 .adm-studio-subtabs button.is-active { background: #F4E3D8; color: #A8501F; }
 
 .adm-studio-preview {
-  flex: 1; min-width: 0; overflow: hidden; background: var(--a-bg); padding: 28px 24px;
+  flex: 1; min-width: 0; overflow: hidden; background: var(--a-bg); padding: 48px 40px;
   display: flex; flex-direction: column;
 }
 .adm-studio-preview .adm-preview-wrap { flex: 1; min-height: 0; width: 100%; }
