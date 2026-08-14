@@ -161,7 +161,7 @@ html, body { margin: 0; padding: 0; }
 .adm-preview-toolbar { display: flex; justify-content: center; }
 .adm-preview-frame {
   width: 100%; max-width: 900px; border: 1px solid var(--a-border); border-radius: 14px;
-  overflow: hidden; background: #fff; max-height: 640px; overflow-y: auto;
+  overflow: hidden; background: var(--a-bg); max-height: 640px; overflow-y: auto;
   box-shadow: var(--a-shadow-md);
   scrollbar-width: thin; scrollbar-color: var(--a-border) transparent;
 }
