@@ -20,7 +20,7 @@ export async function uploadPortfolioImage(file, userId) {
   const path = `${userId}/${crypto.randomUUID()}.${ext}`;
   const { error } = await supabase.storage.from(BUCKET).upload(path, file, { upsert: false });
   if (error) {
-    throw new Error('No se pudo subir la imagen. Intenta de nuevo.');
+    throw new Error(`No se pudo subir la imagen: ${error.message}`);
   }
 
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);

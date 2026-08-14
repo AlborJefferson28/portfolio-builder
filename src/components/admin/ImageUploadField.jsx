@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { ImagePlus, Link2, Trash2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { uploadPortfolioImage, deletePortfolioImage } from '../../lib/imageUpload.js';
+import { uploadPortfolioImage } from '../../lib/imageUpload.js';
 
 export default function ImageUploadField({ value, onChange, label, hint }) {
   const { user } = useAuth();
@@ -14,13 +14,15 @@ export default function ImageUploadField({ value, onChange, label, hint }) {
     const file = e.target.files && e.target.files[0];
     e.target.value = '';
     if (!file) return;
+    if (!user) {
+      setError('Tu sesión expiró. Vuelve a iniciar sesión.');
+      return;
+    }
     setError('');
     setUploading(true);
     try {
-      const previousUrl = value;
       const newUrl = await uploadPortfolioImage(file, user.id);
       onChange(newUrl);
-      if (previousUrl) deletePortfolioImage(previousUrl);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -29,7 +31,6 @@ export default function ImageUploadField({ value, onChange, label, hint }) {
   };
 
   const handleRemove = () => {
-    if (value) deletePortfolioImage(value);
     onChange('');
   };
 
