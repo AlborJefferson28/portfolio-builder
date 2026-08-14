@@ -18,6 +18,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     let cancelled = false;
+    setLoading(true);
     (async () => {
       setError('');
       const { data, error } = await supabase
@@ -30,7 +31,7 @@ export default function DashboardPage() {
       if (!cancelled) setLoading(false);
     })();
     return () => { cancelled = true; };
-  }, []);
+  }, [user.id]);
 
   const handleCreate = async () => {
     setCreating(true);
