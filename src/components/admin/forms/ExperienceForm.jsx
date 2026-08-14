@@ -1,5 +1,6 @@
 import { Plus, Trash2 } from 'lucide-react';
 import Field from '../Field.jsx';
+import AutoTextarea from '../AutoTextarea.jsx';
 import { uid } from '../../../utils/uid.js';
 
 export default function ExperienceForm({ content, onChange }) {
@@ -15,7 +16,7 @@ export default function ExperienceForm({ content, onChange }) {
           <Field label="Rol"><input className="adm-input" value={it.role} onChange={(e) => updateItem(it.id, { role: e.target.value })} /></Field>
           <Field label="Empresa"><input className="adm-input" value={it.org} onChange={(e) => updateItem(it.id, { org: e.target.value })} /></Field>
           <Field label="Período" hint="Ej. 2023 — Presente"><input className="adm-input" value={it.period} onChange={(e) => updateItem(it.id, { period: e.target.value })} /></Field>
-          <Field label="Descripción"><textarea className="adm-textarea" rows={2} value={it.description} onChange={(e) => updateItem(it.id, { description: e.target.value })} /></Field>
+          <Field label="Descripción"><AutoTextarea className="adm-textarea" rows={2} value={it.description} onChange={(e) => updateItem(it.id, { description: e.target.value })} /></Field>
         </div>
       ))}
       <button type="button" className="adm-add-btn" onClick={addItem}><Plus size={14} /> Agregar experiencia</button>

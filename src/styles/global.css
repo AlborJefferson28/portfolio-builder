@@ -123,7 +123,7 @@ html, body { margin: 0; padding: 0; }
   font-family: var(--font-body); color: var(--a-text); background: var(--a-panel); width: 100%;
 }
 .adm-input:focus, .adm-textarea:focus { outline: 2px solid var(--a-accent); outline-offset: 1px; }
-.adm-textarea { resize: vertical; }
+.adm-textarea { resize: none; overflow: hidden; }
 
 .adm-list-editor { display: flex; flex-direction: column; gap: 12px; }
 .adm-list-item {
