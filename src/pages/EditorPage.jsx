@@ -10,6 +10,7 @@ import PublishModal from '../components/admin/PublishModal.jsx';
 import ThemeToggle from '../components/admin/ThemeToggle.jsx';
 import { slugify } from '../utils/slugify.js';
 import { formatRelativeTime } from '../utils/formatRelativeTime.js';
+import { deletePortfolioImage, collectImageUrls } from '../lib/imageUpload.js';
 
 export default function EditorPage() {
   const { id } = useParams();
@@ -28,6 +29,16 @@ export default function EditorPage() {
   const titleInputRef = useRef(null);
   const skippedInitialSave = useRef(false);
   const isUnmountingRef = useRef(false);
+  const lastSavedSectionsRef = useRef(null);
+
+  const cleanupOrphanedImages = (newSections) => {
+    const prevUrls = collectImageUrls(lastSavedSectionsRef.current || []);
+    const newUrls = new Set(collectImageUrls(newSections));
+    for (const url of prevUrls) {
+      if (!newUrls.has(url)) deletePortfolioImage(url);
+    }
+    lastSavedSectionsRef.current = newSections;
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -38,6 +49,7 @@ export default function EditorPage() {
         setLoadState('notfound');
       } else {
         setPortfolio(data);
+        lastSavedSectionsRef.current = data.sections;
         setLoadState('ready');
       }
     })();
@@ -67,7 +79,10 @@ export default function EditorPage() {
         .select('id');
       const saved = !error && data && data.length > 0;
       setSaveState(saved ? 'saved' : 'error');
-      if (saved) setLastSavedAt(new Date());
+      if (saved) {
+        setLastSavedAt(new Date());
+        cleanupOrphanedImages(portfolio.sections);
+      }
     }, 600);
     return () => {
       clearTimeout(t);
@@ -78,7 +93,9 @@ export default function EditorPage() {
           .update({ sections: portfolio.sections, theme: portfolio.theme, title: portfolio.title, updated_at: new Date().toISOString() })
           .eq('id', id)
           .select('id')
-          .then(() => {});
+          .then(({ data, error }) => {
+            if (!error && data && data.length > 0) cleanupOrphanedImages(portfolio.sections);
+          });
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -33,6 +33,19 @@ export function deletePortfolioImage(url) {
   supabase.storage.from(BUCKET).remove([path]).catch(() => {});
 }
 
+export function collectImageUrls(sections) {
+  const urls = [];
+  for (const section of sections) {
+    if (section.type === 'hero' && section.content.photoUrl) urls.push(section.content.photoUrl);
+    if (section.type === 'projects') {
+      for (const item of section.content.items || []) {
+        if (item.imageUrl) urls.push(item.imageUrl);
+      }
+    }
+  }
+  return urls;
+}
+
 function extractStoragePath(url) {
   if (typeof url !== 'string') return null;
   const marker = `/storage/v1/object/public/${BUCKET}/`;
