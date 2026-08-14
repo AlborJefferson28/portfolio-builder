@@ -135,7 +135,7 @@ export default function EditorPage() {
   const defaultSlug = slugify(heroSection && heroSection.content ? heroSection.content.name : 'mi-portfolio');
 
   return (
-    <div className="adm-shell">
+    <div className="adm-shell adm-shell-studio">
       <header className="adm-header">
         <Link to="/dashboard" className="adm-btn-ghost" aria-label="Volver al panel"><ArrowLeft size={14} /> Volver al panel</Link>
         <div className="adm-brand-block">

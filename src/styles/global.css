@@ -23,6 +23,7 @@ html, body { margin: 0; padding: 0; }
   min-height: 100vh; background: var(--a-bg); color: var(--a-text);
   font-family: var(--font-body); display: flex; flex-direction: column;
 }
+.adm-shell.adm-shell-studio { height: 100vh; overflow: hidden; }
 .adm-header {
   display: flex; align-items: center; gap: 24px; padding: 14px 20px;
   border-bottom: 1px solid var(--a-border); background: var(--a-panel);
@@ -224,20 +225,23 @@ html, body { margin: 0; padding: 0; }
   display: flex; flex-direction: column;
 }
 .adm-studio-preview .adm-preview-wrap { flex: 1; min-height: 0; width: 100%; }
-.adm-studio-preview .adm-device-frame { height: 100%; width: auto; max-width: min(900px, 100%); }
-.adm-studio-preview .adm-device-frame.is-desktop { aspect-ratio: 16 / 9; }
-.adm-studio-preview .adm-device-frame.is-mobile { aspect-ratio: 9 / 19.5; max-width: min(380px, 100%); }
+.adm-studio-preview .adm-device-frame.is-desktop {
+  width: 100%; max-width: min(900px, 100%); aspect-ratio: 16 / 9; height: auto; max-height: 100%; min-width: 0;
+}
+.adm-studio-preview .adm-device-frame.is-mobile {
+  height: 100%; width: auto; aspect-ratio: 9 / 19.5; max-width: min(380px, 100%); min-width: 0;
+}
 .adm-studio-preview .adm-preview-frame { max-height: none; flex: 1; min-height: 0; overflow-y: auto; }
 
 @media (max-width: 900px) {
+  .adm-shell.adm-shell-studio { height: auto; min-height: 100vh; overflow: visible; }
   .adm-studio-body { display: block; min-height: auto; }
   .adm-studio-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--a-border); overflow-y: visible; }
   .adm-studio-preview { display: block; overflow: visible; }
   .adm-studio-preview .adm-preview-wrap { flex: none; }
-  .adm-studio-preview .adm-device-frame,
   .adm-studio-preview .adm-device-frame.is-desktop,
   .adm-studio-preview .adm-device-frame.is-mobile {
-    height: auto; width: 100%; aspect-ratio: auto;
+    width: 100%; max-width: none; height: auto; max-height: none; aspect-ratio: auto;
   }
   .adm-studio-preview .adm-preview-frame { flex: none; max-height: none; overflow-y: visible; }
 }
