@@ -163,8 +163,13 @@ html, body { margin: 0; padding: 0; }
   width: 100%; max-width: 900px; border: 1px solid var(--a-border); border-radius: 14px;
   overflow: hidden; background: #fff; max-height: 640px; overflow-y: auto;
   box-shadow: var(--a-shadow-md);
+  scrollbar-width: thin; scrollbar-color: var(--a-border) transparent;
 }
 .adm-preview-frame.is-mobile { max-width: 380px; }
+.adm-preview-frame::-webkit-scrollbar { width: 8px; }
+.adm-preview-frame::-webkit-scrollbar-track { background: transparent; }
+.adm-preview-frame::-webkit-scrollbar-thumb { background: var(--a-border); border-radius: 999px; }
+.adm-preview-frame::-webkit-scrollbar-thumb:hover { background: var(--a-muted); }
 
 .adm-device-frame { display: flex; flex-direction: column; width: 100%; max-width: 900px; box-shadow: var(--a-shadow-md); }
 .adm-device-frame.is-mobile { max-width: 380px; }
