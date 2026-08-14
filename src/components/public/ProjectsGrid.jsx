@@ -6,6 +6,7 @@ export default function ProjectsGrid({ content }) {
       <div className="pf-projects-grid">
         {content.items.map((p) => (
           <article key={p.id} className="pf-project-card">
+            {p.imageUrl && <img src={p.imageUrl} alt={p.title || 'Proyecto'} className="pf-project-image" />}
             <h3 className="pf-project-title">{p.title || 'Proyecto'}</h3>
             {p.description && <p className="pf-project-desc">{p.description}</p>}
             {p.stack && (
