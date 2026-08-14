@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { ImagePlus, Link2, Trash2 } from 'lucide-react';
+import { ImagePlus, Link2, Trash2, Crop } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { uploadPortfolioImage } from '../../lib/imageUpload.js';
 import ImageFrameModal from './ImageFrameModal.jsx';
@@ -79,6 +79,11 @@ export default function ImageUploadField({
           <button type="button" className="adm-image-upload-link-btn" onClick={() => setShowUrlInput((s) => !s)}>
             <Link2 size={12} /> o pegar una URL
           </button>
+          {value && canEditFrame && (
+            <button type="button" className="adm-image-upload-link-btn" onClick={() => setFrameModalOpen(true)}>
+              <Crop size={12} /> Editar encuadre
+            </button>
+          )}
           {value && (
             <button type="button" className="adm-image-upload-remove" onClick={handleRemove} aria-label="Quitar imagen">
               <Trash2 size={14} />
