@@ -1,5 +1,6 @@
 import Field from '../Field.jsx';
 import AutoTextarea from '../AutoTextarea.jsx';
+import ImageUploadField from '../ImageUploadField.jsx';
 
 export default function HeroForm({ content, onChange }) {
   const set = (k, v) => onChange({ ...content, [k]: v });
@@ -10,9 +11,12 @@ export default function HeroForm({ content, onChange }) {
       <Field label="Tagline" hint="Una frase corta debajo de tu nombre">
         <AutoTextarea className="adm-textarea" rows={2} value={content.tagline} onChange={(e) => set('tagline', e.target.value)} />
       </Field>
-      <Field label="Foto (URL)" hint="Opcional. Si lo dejas vacío, se muestran tus iniciales.">
-        <input className="adm-input" value={content.photoUrl} onChange={(e) => set('photoUrl', e.target.value)} placeholder="https://..." />
-      </Field>
+      <ImageUploadField
+        label="Foto"
+        hint="Sube una imagen o pega una URL. Si lo dejas vacío, se muestran tus iniciales."
+        value={content.photoUrl}
+        onChange={(v) => set('photoUrl', v)}
+      />
     </div>
   );
 }
