@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Layers, Palette, ExternalLink, ArrowLeft } from 'lucide-react';
+import { Layers, Palette, ExternalLink, ArrowLeft, Share2 } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import SectionsContentTab from '../components/admin/SectionsContentTab.jsx';
@@ -207,7 +207,9 @@ export default function EditorPage() {
               <ExternalLink size={14} /> Ver publicado
             </a>
           )}
-          <button className="adm-btn-primary" onClick={() => setModalOpen(true)}>Publicar</button>
+          <button className="adm-btn-primary" onClick={() => setModalOpen(true)}>
+            {portfolio.published ? (<><Share2 size={14} /> Compartir</>) : 'Publicar'}
+          </button>
         </div>
       </header>
 

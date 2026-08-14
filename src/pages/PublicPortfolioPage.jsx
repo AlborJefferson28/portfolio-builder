@@ -43,7 +43,14 @@ export default function PublicPortfolioPage() {
   if (state === 'loading') {
     return (
       <div className="pf-scope" data-theme="light">
-        <div className="pf-status-screen"><p>Cargando portfolio…</p></div>
+        <div className="pf-loading-screen">
+          <div className="pf-loading-mark">
+            <span className="pf-loading-ring" />
+            <span className="pf-loading-ring pf-loading-ring-delay" />
+            <span className="pf-loading-core" />
+          </div>
+          <p className="pf-loading-text">Cargando portfolio</p>
+        </div>
       </div>
     );
   }

@@ -131,6 +131,8 @@ html, body { margin: 0; padding: 0; }
   flex-direction: column; gap: 10px; position: relative; background: var(--a-panel);
 }
 .adm-list-item-row { flex-direction: row; align-items: center; padding: 10px 12px; }
+.adm-skill-item { padding: 12px; gap: 10px; }
+.adm-skill-item-row { display: flex; align-items: center; gap: 10px; }
 .adm-remove-btn {
   position: absolute; top: 10px; right: 10px; background: none; border: none;
   color: var(--a-muted); cursor: pointer; padding: 4px; border-radius: 5px;
@@ -336,6 +338,25 @@ html, body { margin: 0; padding: 0; }
 .adm-code { font-family: var(--font-mono); font-size: 13px; flex: 1; overflow-x: auto; white-space: nowrap; }
 .adm-modal-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
 .adm-modal .adm-btn-primary { margin-top: 6px; width: 100%; justify-content: center; }
+
+.adm-share-modal { max-width: 380px; padding: 26px; }
+.adm-share-badge {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.03em; text-transform: uppercase; color: #2E7A52; background: #E3F1E8;
+  padding: 4px 10px; border-radius: 20px; margin-bottom: 14px;
+}
+.adm-share-dot { width: 6px; height: 6px; border-radius: 50%; background: #2E7A52; flex-shrink: 0; }
+.adm-share-modal .adm-modal-title { margin-bottom: 16px; }
+.adm-share-url-row { margin-bottom: 20px; }
+.adm-share-url { overflow: hidden; text-overflow: ellipsis; }
+.adm-icon-btn {
+  background: none; border: 1px solid var(--a-border); color: var(--a-muted); border-radius: 7px;
+  padding: 7px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: border-color var(--a-duration-fast) var(--a-ease), color var(--a-duration-fast) var(--a-ease);
+}
+.adm-icon-btn:hover { border-color: var(--a-accent); color: var(--a-accent); }
+.adm-share-actions { align-items: stretch; gap: 10px; }
+.adm-share-actions .adm-link-btn { align-self: center; }
 
 /* ---------- Auth / dashboard chrome ---------- */
 .adm-loading-screen {
@@ -660,6 +681,37 @@ html, body { margin: 0; padding: 0; }
 .pf-status-title { font-family: var(--font-display); font-size: 20px; margin: 0; }
 .pf-status-desc { color: var(--p-muted); font-size: 14px; max-width: 360px; margin: 0 0 8px; }
 
+.pf-loading-screen {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 22px; background: var(--p-bg); color: var(--p-text); font-family: var(--font-body);
+}
+.pf-loading-mark { position: relative; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.pf-loading-core {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--p-accent);
+  animation: pf-core-breathe 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.pf-loading-ring {
+  position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--p-accent); opacity: 0;
+  animation: pf-ring-pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.pf-loading-ring-delay { animation-delay: 1s; }
+.pf-loading-text {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--p-muted);
+  margin: 0; animation: pf-text-breathe 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes pf-ring-pulse {
+  0% { transform: scale(0.3); opacity: 0.45; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+@keyframes pf-core-breathe {
+  0%, 100% { transform: scale(0.8); opacity: 0.6; }
+  50% { transform: scale(1); opacity: 1; }
+}
+@keyframes pf-text-breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.95; }
+}
+
 .pf-section.pf-hero { text-align: center; padding-top: 90px; }
 .pf-hero-centered .pf-hero-avatar, .pf-hero-centered .pf-hero-photo-frame {
   width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 22px;
@@ -773,6 +825,8 @@ html[data-admin-theme="dark"] .adm-toggle { background: #45454A; }
 html[data-admin-theme="dark"] .adm-remove-btn:hover { color: #E0796B; background: #3A211F; }
 html[data-admin-theme="dark"] .adm-error { color: #E0796B; }
 html[data-admin-theme="dark"] .adm-save-indicator.is-error { color: #E0796B; }
+html[data-admin-theme="dark"] .adm-share-badge { background: #1E3126; color: #7FCB9E; }
+html[data-admin-theme="dark"] .adm-share-dot { background: #7FCB9E; }
 
 @media (max-width: 640px) {
   .adm-main { padding: 20px 14px 50px; }
