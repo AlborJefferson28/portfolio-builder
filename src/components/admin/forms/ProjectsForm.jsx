@@ -14,7 +14,16 @@ export default function ProjectsForm({ content, onChange }) {
       {items.map((it) => (
         <div key={it.id} className="adm-list-item">
           <button type="button" className="adm-remove-btn" onClick={() => removeItem(it.id)} aria-label="Eliminar proyecto"><Trash2 size={14} /></button>
-          <ImageUploadField label="Imagen de portada" value={it.imageUrl || ''} onChange={(v) => updateItem(it.id, { imageUrl: v })} />
+          <ImageUploadField
+            label="Imagen de portada"
+            value={it.imageUrl || ''}
+            onChange={(v) => updateItem(it.id, { imageUrl: v })}
+            position={it.imagePosition}
+            zoom={it.imageZoom}
+            onPositionChange={(p) => updateItem(it.id, { imagePosition: p })}
+            onZoomChange={(z) => updateItem(it.id, { imageZoom: z })}
+            frameShape="16:9"
+          />
           <Field label="Título"><input className="adm-input" value={it.title} onChange={(e) => updateItem(it.id, { title: e.target.value })} /></Field>
           <Field label="Descripción"><AutoTextarea className="adm-textarea" rows={2} value={it.description} onChange={(e) => updateItem(it.id, { description: e.target.value })} /></Field>
           <Field label="Stack" hint="Separado por comas"><input className="adm-input" value={it.stack} onChange={(e) => updateItem(it.id, { stack: e.target.value })} /></Field>
