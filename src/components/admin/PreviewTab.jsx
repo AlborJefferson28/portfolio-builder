@@ -14,8 +14,19 @@ export default function PreviewTab({ sections, theme, viewport, onViewportChange
           </button>
         </div>
       </div>
-      <div className={`adm-preview-frame ${viewport === 'mobile' ? 'is-mobile' : ''}`}>
-        <PortfolioRenderer sections={sections} theme={theme} />
+      <div className={`adm-device-frame ${viewport === 'mobile' ? 'is-mobile' : 'is-desktop'}`}>
+        {viewport === 'desktop' && (
+          <div className="adm-browser-chrome">
+            <span className="adm-browser-dot adm-browser-dot-red" />
+            <span className="adm-browser-dot adm-browser-dot-yellow" />
+            <span className="adm-browser-dot adm-browser-dot-green" />
+            <span className="adm-browser-url">portfolio.studio</span>
+          </div>
+        )}
+        {viewport === 'mobile' && <div className="adm-phone-notch" />}
+        <div className={`adm-preview-frame ${viewport === 'mobile' ? 'is-mobile' : ''}`}>
+          <PortfolioRenderer sections={sections} theme={theme} />
+        </div>
       </div>
     </div>
   );
