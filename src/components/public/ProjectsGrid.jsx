@@ -1,3 +1,5 @@
+import { getImageFrameStyle } from '../../utils/imageFrameStyle.js';
+
 export default function ProjectsGrid({ content }) {
   return (
     <section className="pf-section pf-projects">
@@ -15,7 +17,7 @@ export default function ProjectsGrid({ content }) {
                     src={p.imageUrl}
                     alt={p.title || 'Proyecto'}
                     className="pf-project-image"
-                    style={{ objectPosition: `${pos.x}% ${pos.y}%`, transform: `scale(${zoom})` }}
+                    style={getImageFrameStyle(pos, zoom)}
                   />
                 </div>
               )}

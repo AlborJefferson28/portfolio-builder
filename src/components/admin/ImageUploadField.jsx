@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { ImagePlus, Link2, Trash2, Crop } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { uploadPortfolioImage } from '../../lib/imageUpload.js';
+import { getImageFrameStyle } from '../../utils/imageFrameStyle.js';
 
 const DEFAULT_POSITION = { x: 50, y: 50 };
 const DEFAULT_ZOOM = 1;
@@ -154,11 +155,12 @@ export default function ImageUploadField({
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
           >
             <img
               src={value}
               alt=""
-              style={{ objectPosition: `${pos.x}% ${pos.y}%`, transform: `scale(${z})` }}
+              style={getImageFrameStyle(pos, z)}
               draggable={false}
             />
           </div>

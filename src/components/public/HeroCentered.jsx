@@ -1,4 +1,5 @@
 import { initials } from '../../utils/initials.js';
+import { getImageFrameStyle } from '../../utils/imageFrameStyle.js';
 
 export default function HeroCentered({ content }) {
   const pos = content.photoPosition || { x: 50, y: 50 };
@@ -12,7 +13,7 @@ export default function HeroCentered({ content }) {
             src={content.photoUrl}
             alt={content.name}
             className="pf-hero-photo"
-            style={{ objectPosition: `${pos.x}% ${pos.y}%`, transform: `scale(${zoom})` }}
+            style={getImageFrameStyle(pos, zoom)}
           />
         </div>
       ) : (

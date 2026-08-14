@@ -1,4 +1,5 @@
 import { initials } from '../../utils/initials.js';
+import { getImageFrameStyle } from '../../utils/imageFrameStyle.js';
 
 export default function HeroSplit({ content }) {
   const pos = content.photoPosition || { x: 50, y: 50 };
@@ -16,7 +17,7 @@ export default function HeroSplit({ content }) {
           <img
             src={content.photoUrl}
             alt={content.name}
-            style={{ objectPosition: `${pos.x}% ${pos.y}%`, transform: `scale(${zoom})` }}
+            style={getImageFrameStyle(pos, zoom)}
           />
         ) : initials(content.name)}
       </div>
