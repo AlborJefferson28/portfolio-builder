@@ -1,10 +1,9 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Layers, FileText, Palette, Eye, ExternalLink, ArrowLeft } from 'lucide-react';
+import { Layers, Palette, Eye, ExternalLink, ArrowLeft } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient.js';
 import { useAuth } from '../context/AuthContext.jsx';
-import SectionsTab from '../components/admin/SectionsTab.jsx';
-import ContentTab from '../components/admin/ContentTab.jsx';
+import SectionsContentTab from '../components/admin/SectionsContentTab.jsx';
 import DesignTab from '../components/admin/DesignTab.jsx';
 import PreviewTab from '../components/admin/PreviewTab.jsx';
 import PublishModal from '../components/admin/PublishModal.jsx';
@@ -12,7 +11,7 @@ import ThemeToggle from '../components/admin/ThemeToggle.jsx';
 import { slugify } from '../utils/slugify.js';
 import { formatRelativeTime } from '../utils/formatRelativeTime.js';
 
-const TAB_LABELS = { sections: 'Secciones', content: 'Contenido', design: 'Diseño', preview: 'Vista previa' };
+const TAB_LABELS = { sections: 'Secciones', design: 'Diseño', preview: 'Vista previa' };
 
 export default function EditorPage() {
   const { id } = useParams();
@@ -147,7 +146,6 @@ export default function EditorPage() {
         </div>
         <nav className="adm-tabs">
           <button className={tab === 'sections' ? 'is-active' : ''} onClick={() => setTab('sections')}><Layers size={14} /> Secciones</button>
-          <button className={tab === 'content' ? 'is-active' : ''} onClick={() => setTab('content')}><FileText size={14} /> Contenido</button>
           <button className={tab === 'design' ? 'is-active' : ''} onClick={() => setTab('design')}><Palette size={14} /> Diseño</button>
           <button className={tab === 'preview' ? 'is-active' : ''} onClick={() => setTab('preview')}><Eye size={14} /> Vista previa</button>
         </nav>
@@ -166,8 +164,14 @@ export default function EditorPage() {
       </header>
 
       <main className="adm-main">
-        {tab === 'sections' && <SectionsTab sections={portfolio.sections} onToggle={toggleSection} onMove={moveSection} />}
-        {tab === 'content' && <ContentTab sections={portfolio.sections} onUpdateContent={updateSectionContent} />}
+        {tab === 'sections' && (
+          <SectionsContentTab
+            sections={portfolio.sections}
+            onToggle={toggleSection}
+            onMove={moveSection}
+            onUpdateContent={updateSectionContent}
+          />
+        )}
         {tab === 'design' && <DesignTab sections={portfolio.sections} theme={portfolio.theme} onVariantChange={setVariant} onThemeChange={setTheme} />}
         {tab === 'preview' && (
           <PreviewTab sections={portfolio.sections} theme={portfolio.theme} viewport={viewport} onViewportChange={setViewport} />
