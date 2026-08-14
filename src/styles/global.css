@@ -184,9 +184,10 @@ html, body { margin: 0; padding: 0; }
 .adm-studio-preview {
   flex: 1; min-width: 0; overflow-y: auto; background: var(--a-bg); padding: 28px 24px;
 }
+.adm-studio-preview .adm-preview-frame { max-height: none; overflow-y: visible; }
 
 @media (max-width: 900px) {
-  .adm-studio-body { flex-direction: column; }
+  .adm-studio-body { display: block; min-height: auto; }
   .adm-studio-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--a-border); overflow-y: visible; }
   .adm-studio-preview { overflow-y: visible; }
 }
@@ -645,6 +646,7 @@ html[data-admin-theme="dark"] .adm-shell {
 html[data-admin-theme="dark"] .adm-tabs button.is-active { background: #3A2C24; color: #F0A480; }
 html[data-admin-theme="dark"] .adm-sidebar-link.is-active { background: #3A2C24; color: #F0A480; }
 html[data-admin-theme="dark"] .adm-variant-card.is-active { background: #2A211C; }
+html[data-admin-theme="dark"] .adm-studio-subtabs button.is-active { background: #3A2C24; color: #F0A480; }
 html[data-admin-theme="dark"] .adm-toggle { background: #45454A; }
 html[data-admin-theme="dark"] .adm-remove-btn:hover { color: #E0796B; background: #3A211F; }
 html[data-admin-theme="dark"] .adm-error { color: #E0796B; }
