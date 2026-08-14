@@ -7,7 +7,7 @@ import ContactForm from './forms/ContactForm.jsx';
 
 export default function ContentForm({ section, onChange }) {
   switch (section.type) {
-    case 'hero': return <HeroForm content={section.content} onChange={onChange} />;
+    case 'hero': return <HeroForm content={section.content} variant={section.variant} onChange={onChange} />;
     case 'about': return <AboutForm content={section.content} onChange={onChange} />;
     case 'projects': return <ProjectsForm content={section.content} onChange={onChange} />;
     case 'skills': return <SkillsForm content={section.content} onChange={onChange} />;
