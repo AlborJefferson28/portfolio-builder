@@ -15,7 +15,7 @@ export default function SkillsBar({ content }) {
               type="category"
               dataKey="name"
               width={120}
-              tick={{ fontSize: 13, fill: '#8A8272', fontFamily: 'Inter, sans-serif' }}
+              tick={{ fontSize: 13, fill: '#8A8272', fontFamily: 'var(--font-body)' }}
               axisLine={false}
               tickLine={false}
             />
