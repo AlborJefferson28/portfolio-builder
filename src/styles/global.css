@@ -388,6 +388,21 @@ html, body { margin: 0; padding: 0; }
 }
 .auth-btn-google:hover { background: var(--a-bg); }
 
+.auth-form .adm-btn-primary { width: 100%; justify-content: center; }
+
+.auth-password-wrapper {
+  position: relative; display: flex; align-items: center;
+}
+.auth-password-wrapper .adm-input {
+  padding-right: 40px;
+}
+.auth-password-toggle {
+  position: absolute; right: 10px; background: none; border: none;
+  color: var(--a-muted); cursor: pointer; padding: 6px; display: flex;
+  align-items: center; justify-content: center;
+}
+.auth-password-toggle:hover { color: var(--a-text); }
+
 .auth-visual-pane {
   --av-bg: #1F1611; --av-bg-2: #2A1D16; --av-text: #F7EFE6; --av-muted: #C9B8A8;
   --av-accent: #F0A480; --av-accent-2: #D97757;
