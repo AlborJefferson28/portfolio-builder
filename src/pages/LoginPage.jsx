@@ -132,7 +132,7 @@ export default function LoginPage() {
           </div>
         </div>
         <p className="auth-visual-eyebrow">$ tu-portfolio</p>
-        <h2 className="auth-visual-title">Creá y personalizá tu portfolio público en minutos</h2>
+        <h2 className="auth-visual-title">Crea y personaliza tu portfolio público en minutos</h2>
       </div>
     </div>
   );
