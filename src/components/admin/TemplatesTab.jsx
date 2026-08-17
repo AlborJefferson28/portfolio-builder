@@ -35,7 +35,7 @@ export default function TemplatesTab({ design, theme, onApplyTemplate, onAccentC
   const [customFontBody, setCustomFontBody] = useState(CUSTOM_FONTS[0]);
 
   const currentTemplateId = design.template;
-  const currentTemplate = TEMPLATES[currentTemplateId];
+  const currentTemplate = TEMPLATES[currentTemplateId] || TEMPLATES.editorial;
   const isCustomAccent = Boolean(design.accent && design.accent.custom);
   const isCustomFont = Boolean(design.font && design.font.custom);
 
@@ -81,7 +81,7 @@ export default function TemplatesTab({ design, theme, onApplyTemplate, onAccentC
             <button
               type="button"
               key={key}
-              className={`adm-swatch ${!isCustomAccent && design.accent.preset === key ? 'is-active' : ''}`}
+              className={`adm-swatch ${!isCustomAccent && design.accent?.preset === key ? 'is-active' : ''}`}
               style={{ background: preset[theme].accent }}
               title={preset.label}
               aria-label={preset.label}
@@ -118,7 +118,7 @@ export default function TemplatesTab({ design, theme, onApplyTemplate, onAccentC
             <button
               type="button"
               key={key}
-              className={`adm-variant-card ${!isCustomFont && design.font.preset === key ? 'is-active' : ''}`}
+              className={`adm-variant-card ${!isCustomFont && design.font?.preset === key ? 'is-active' : ''}`}
               onClick={() => onFontChange({ preset: key })}
             >
               <span className="adm-variant-card-title" style={{ fontFamily: `"${pair.display}", serif` }}>{pair.label}</span>

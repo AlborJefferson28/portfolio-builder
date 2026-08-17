@@ -27,7 +27,7 @@ export default function PortfolioRenderer({ sections, theme, design, onTrack }) 
           return Comp ? <Comp key={section.id} content={section.content} onTrack={onTrack} /> : null;
         })}
         <footer className="pf-colophon">
-          <p>Tipografía: Fraunces · Inter · JetBrains Mono</p>
+          <p>Tipografía: {fontFamilies.join(' · ')}</p>
         </footer>
       </div>
     </div>

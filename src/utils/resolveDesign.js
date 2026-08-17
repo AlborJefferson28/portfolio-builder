@@ -17,10 +17,10 @@ export function resolveDesign(design, theme) {
   const accentChoice = (design && design.accent) || { preset: 'default' };
   const accent = accentChoice.custom
     ? { accent: accentChoice.custom, accentSoft: hexToSoftRgba(accentChoice.custom, theme) }
-    : template.accentPresets[accentChoice.preset || 'default'][theme];
+    : (template.accentPresets[accentChoice.preset] || template.accentPresets.default)[theme];
 
   const fontChoice = (design && design.font) || { preset: 'default' };
-  const font = fontChoice.custom || template.fontPairs[fontChoice.preset || 'default'];
+  const font = fontChoice.custom || template.fontPairs[fontChoice.preset] || template.fontPairs.default;
   const mono = font.mono || 'JetBrains Mono';
 
   const style = {
