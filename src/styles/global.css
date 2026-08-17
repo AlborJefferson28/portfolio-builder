@@ -720,6 +720,10 @@ html, body { margin: 0; padding: 0; }
   --p-bg: #1B1712; --p-bg-elevated: #221E17; --p-text: #F2ECE0; --p-muted: #A69C89;
   --p-border: #3A342A; --p-accent: #E08962; --p-accent-soft: rgba(224,137,98,0.14);
 }
+
+.pf-hero-name, .pf-hero-split .pf-hero-visual, .pf-project-title, .pf-timeline-role, .pf-contact-email, .pf-status-title {
+  font-style: var(--font-display-style, normal);
+}
 .pf-page { background: var(--p-bg); color: var(--p-text); font-family: var(--font-body); min-height: 100vh; }
 .pf-section { padding: 64px 24px; max-width: 860px; margin: 0 auto; }
 .pf-eyebrow { font-family: var(--font-mono); font-size: 12.5px; color: var(--p-accent); margin: 0 0 14px; letter-spacing: 0.02em; }
@@ -782,7 +786,7 @@ html, body { margin: 0; padding: 0; }
 .pf-hero-split .pf-hero-name { font-size: clamp(32px, 5.5cqw, 50px); }
 .pf-hero-split .pf-hero-tagline { margin: 0; max-width: none; }
 .pf-hero-split .pf-hero-visual {
-  aspect-ratio: 4/5; border-radius: 16px; background: var(--p-accent-soft); display: flex;
+  aspect-ratio: 4/5; border-radius: var(--p-radius, 16px); background: var(--p-accent-soft); display: flex;
   align-items: center; justify-content: center; font-family: var(--font-display); font-size: 60px;
   color: var(--p-accent); overflow: hidden; border: 1px solid var(--p-border);
 }
@@ -795,7 +799,7 @@ html, body { margin: 0; padding: 0; }
 }
 .pf-projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .pf-project-card {
-  border: 1px solid var(--p-border); border-radius: 14px; padding: 22px; background: var(--p-bg-elevated);
+  border: 1px solid var(--p-border); border-radius: var(--p-radius, 14px); padding: 22px; background: var(--p-bg-elevated);
   display: flex; flex-direction: column; gap: 10px; transition: transform 0.15s, border-color 0.15s;
 }
 .pf-project-card:hover { transform: translateY(-2px); border-color: var(--p-accent); }
@@ -807,7 +811,7 @@ html, body { margin: 0; padding: 0; }
   background: var(--p-accent-soft); color: var(--p-accent);
 }
 .pf-project-link { font-size: 12.5px; color: var(--p-accent); text-decoration: none; margin-top: 4px; }
-.pf-project-image-frame { width: 100%; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; }
+.pf-project-image-frame { width: 100%; aspect-ratio: 16/9; border-radius: var(--p-radius, 8px); overflow: hidden; }
 .pf-project-image-frame .pf-project-image { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pf-project-row .pf-project-image-frame { max-width: 220px; margin-bottom: 6px; }
 
