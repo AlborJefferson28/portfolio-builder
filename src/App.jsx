@@ -5,6 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import EditorPage from './pages/EditorPage.jsx';
+import AnalyticsListPage from './pages/AnalyticsListPage.jsx';
 import AnalyticsPage from './pages/AnalyticsPage.jsx';
 import PublicPortfolioPage from './pages/PublicPortfolioPage.jsx';
 
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
             <Route path="/editor/:id" element={<ProtectedRoute><EditorPage /></ProtectedRoute>} />
+            <Route path="/analytics" element={<ProtectedRoute><AnalyticsListPage /></ProtectedRoute>} />
             <Route path="/analytics/:id" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
             <Route path="/p/:slug" element={<PublicPortfolioPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
