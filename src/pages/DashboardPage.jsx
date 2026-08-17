@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Trash2, Pencil, ExternalLink, LogOut } from 'lucide-react';
+import { Plus, Trash2, Pencil, ExternalLink, LogOut, BarChart2 } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { getInitialData } from '../data/initialData.js';
@@ -109,6 +109,11 @@ export default function DashboardPage() {
                   <button type="button" className="adm-btn-ghost" onClick={() => navigate(`/editor/${p.id}`)}>
                     <Pencil size={14} /> Editar
                   </button>
+                  {p.published && (
+                    <button type="button" className="adm-btn-ghost" onClick={() => navigate(`/analytics/${p.id}`)}>
+                      <BarChart2 size={14} /> Analytics
+                    </button>
+                  )}
                   {p.published && (
                     <a className="adm-btn-ghost" href={`/p/${p.slug}`} target="_blank" rel="noreferrer">
                       <ExternalLink size={14} />
