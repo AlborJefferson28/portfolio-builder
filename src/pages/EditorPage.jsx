@@ -229,6 +229,7 @@ export default function EditorPage() {
               onToggle={toggleSection}
               onMove={moveSection}
               onUpdateContent={updateSectionContent}
+              portfolioId={id}
             />
           )}
           {sidebarTab === 'design' && (

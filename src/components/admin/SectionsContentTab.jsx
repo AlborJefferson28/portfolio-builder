@@ -4,7 +4,7 @@ import Toggle from './Toggle.jsx';
 import ContentForm from './ContentForm.jsx';
 import { SECTION_META } from '../../data/sectionMeta.js';
 
-export default function SectionsContentTab({ sections, onToggle, onMove, onUpdateContent }) {
+export default function SectionsContentTab({ sections, onToggle, onMove, onUpdateContent, portfolioId }) {
   const [expandedIds, setExpandedIds] = useState(
     () => new Set(sections.filter((s) => s.enabled).map((s) => s.id)),
   );
@@ -60,7 +60,7 @@ export default function SectionsContentTab({ sections, onToggle, onMove, onUpdat
               </div>
               {expanded && (
                 <div className="adm-section-block-body">
-                  <ContentForm section={s} onChange={(next) => onUpdateContent(s.id, next)} />
+                  <ContentForm section={s} onChange={(next) => onUpdateContent(s.id, next)} portfolioId={portfolioId} />
                 </div>
               )}
             </div>

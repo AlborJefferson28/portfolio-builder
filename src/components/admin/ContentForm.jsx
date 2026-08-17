@@ -5,14 +5,14 @@ import SkillsForm from './forms/SkillsForm.jsx';
 import ExperienceForm from './forms/ExperienceForm.jsx';
 import ContactForm from './forms/ContactForm.jsx';
 
-export default function ContentForm({ section, onChange }) {
+export default function ContentForm({ section, onChange, portfolioId }) {
   switch (section.type) {
     case 'hero': return <HeroForm content={section.content} variant={section.variant} onChange={onChange} />;
     case 'about': return <AboutForm content={section.content} onChange={onChange} />;
     case 'projects': return <ProjectsForm content={section.content} onChange={onChange} />;
     case 'skills': return <SkillsForm content={section.content} onChange={onChange} />;
     case 'experience': return <ExperienceForm content={section.content} onChange={onChange} />;
-    case 'contact': return <ContactForm content={section.content} onChange={onChange} />;
+    case 'contact': return <ContactForm content={section.content} onChange={onChange} portfolioId={portfolioId} />;
     default: return null;
   }
 }

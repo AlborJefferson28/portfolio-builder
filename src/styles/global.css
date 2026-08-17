@@ -170,6 +170,12 @@ html, body { margin: 0; padding: 0; }
 }
 .adm-image-upload-remove:hover { color: #B84C3A; background: #F6E4DE; }
 .adm-image-upload-error { font-size: 11.5px; color: #B84C3A; display: block; margin-top: 6px; }
+.adm-cv-upload { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.adm-cv-upload-name {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--a-text);
+  text-decoration: underline; text-decoration-color: var(--a-border);
+}
+.adm-cv-upload-name:hover { color: var(--a-accent); }
 .adm-frame-editor-frame {
   position: relative; overflow: hidden; background: var(--a-bg); border: 1px solid var(--a-border);
   cursor: grab; touch-action: none;
