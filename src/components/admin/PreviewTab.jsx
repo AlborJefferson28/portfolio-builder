@@ -1,7 +1,7 @@
 import { Monitor, Smartphone } from 'lucide-react';
 import PortfolioRenderer from '../public/PortfolioRenderer.jsx';
 
-export default function PreviewTab({ sections, theme, viewport, onViewportChange }) {
+export default function PreviewTab({ sections, theme, design, viewport, onViewportChange }) {
   return (
     <div className="adm-preview-wrap">
       <div className="adm-preview-toolbar">
@@ -25,7 +25,7 @@ export default function PreviewTab({ sections, theme, viewport, onViewportChange
         )}
         {viewport === 'mobile' && <div className="adm-phone-notch" aria-hidden="true" />}
         <div className={`adm-preview-frame ${viewport === 'mobile' ? 'is-mobile' : ''}`}>
-          <PortfolioRenderer sections={sections} theme={theme} />
+          <PortfolioRenderer sections={sections} theme={theme} design={design} />
         </div>
       </div>
     </div>

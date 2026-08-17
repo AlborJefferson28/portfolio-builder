@@ -74,7 +74,7 @@ export default function EditorPage() {
     const t = setTimeout(async () => {
       const { data, error } = await supabase
         .from('portfolios')
-        .update({ sections: portfolio.sections, theme: portfolio.theme, title: portfolio.title, updated_at: new Date().toISOString() })
+        .update({ sections: portfolio.sections, theme: portfolio.theme, design: portfolio.design, title: portfolio.title, updated_at: new Date().toISOString() })
         .eq('id', id)
         .select('id');
       const saved = !error && data && data.length > 0;
@@ -90,7 +90,7 @@ export default function EditorPage() {
         // Best-effort save of pending edits on navigation away; fire-and-forget.
         supabase
           .from('portfolios')
-          .update({ sections: portfolio.sections, theme: portfolio.theme, title: portfolio.title, updated_at: new Date().toISOString() })
+          .update({ sections: portfolio.sections, theme: portfolio.theme, design: portfolio.design, title: portfolio.title, updated_at: new Date().toISOString() })
           .eq('id', id)
           .select('id')
           .then(({ data, error }) => {
@@ -99,7 +99,7 @@ export default function EditorPage() {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [portfolio && portfolio.sections, portfolio && portfolio.theme, portfolio && portfolio.title]);
+  }, [portfolio && portfolio.sections, portfolio && portfolio.theme, portfolio && portfolio.design, portfolio && portfolio.title]);
 
   useEffect(() => {
     if (!lastSavedAt) return undefined;
@@ -237,7 +237,7 @@ export default function EditorPage() {
           )}
         </aside>
         <div className="adm-studio-preview">
-          <PreviewTab sections={portfolio.sections} theme={portfolio.theme} viewport={viewport} onViewportChange={setViewport} />
+          <PreviewTab sections={portfolio.sections} theme={portfolio.theme} design={portfolio.design} viewport={viewport} onViewportChange={setViewport} />
         </div>
       </div>
 

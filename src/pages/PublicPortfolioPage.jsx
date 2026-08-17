@@ -25,7 +25,7 @@ export default function PublicPortfolioPage() {
       setState('loading');
       const { data, error } = await supabase
         .from('portfolios')
-        .select('id, user_id, sections, theme')
+        .select('id, user_id, sections, theme, design')
         .eq('slug', slug)
         .eq('published', true)
         .single();
@@ -130,7 +130,7 @@ export default function PublicPortfolioPage() {
 
   return (
     <div className="pf-public-wrap">
-      <PortfolioRenderer sections={portfolio.sections} theme={portfolio.theme} onTrack={handleTrack} />
+      <PortfolioRenderer sections={portfolio.sections} theme={portfolio.theme} design={portfolio.design} onTrack={handleTrack} />
       {isOwner && (
         <a className="pf-edit-fab" href={`/editor/${portfolio.id}`}><Pencil size={14} /> Editar</a>
       )}
