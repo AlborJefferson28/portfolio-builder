@@ -110,16 +110,16 @@ export default function DashboardPage() {
                   {p.published ? `Publicado · /p/${p.slug}` : 'Sin publicar'}
                 </span>
                 <div className="dash-card-actions">
-                  <button type="button" className="adm-btn-ghost" onClick={() => navigate(`/editor/${p.id}`)}>
-                    <Pencil size={14} /> Editar
+                  <button type="button" className="adm-btn-ghost" onClick={() => navigate(`/editor/${p.id}`)} aria-label="Editar">
+                    <Pencil size={14} />
                   </button>
                   {p.published && (
-                    <button type="button" className="adm-btn-ghost" onClick={() => navigate(`/analytics/${p.id}`)}>
-                      <BarChart2 size={14} /> Analytics
+                    <button type="button" className="adm-btn-ghost" onClick={() => navigate(`/analytics/${p.id}`)} aria-label="Analytics">
+                      <BarChart2 size={14} />
                     </button>
                   )}
                   {p.published && (
-                    <a className="adm-btn-ghost" href={`/p/${p.slug}`} target="_blank" rel="noreferrer">
+                    <a className="adm-btn-ghost" href={`/p/${p.slug}`} target="_blank" rel="noreferrer" aria-label="Ver publicado">
                       <ExternalLink size={14} />
                     </a>
                   )}
