@@ -41,10 +41,14 @@ export default function PublicPortfolioPage() {
       trackingEnabledRef.current = !isOwnerView;
       portfolioIdRef.current = data.id;
       if (!isOwnerView) {
-        const viewedKey = `pb-viewed-${data.id}`;
-        if (!sessionStorage.getItem(viewedKey)) {
+        try {
+          const viewedKey = `pb-viewed-${data.id}`;
+          if (!sessionStorage.getItem(viewedKey)) {
+            trackEvent(data.id, 'view', { device_type: getDeviceType() });
+            sessionStorage.setItem(viewedKey, '1');
+          }
+        } catch {
           trackEvent(data.id, 'view', { device_type: getDeviceType() });
-          sessionStorage.setItem(viewedKey, '1');
         }
         mountedAtRef.current = Date.now();
       }

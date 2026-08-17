@@ -17,10 +17,14 @@ export async function uploadPortfolioCv(file, userId, portfolioId) {
     throw new Error('No se pudo subir el CV. Intenta de nuevo.');
   }
 
-  const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+  const { data } = supabase.storage.from(BUCKET).getPublicUrl(path, { download: 'cv.pdf' });
   // El path es fijo por portfolio (upsert sobrescribe) — se agrega un parámetro de
   // versión para evitar que el navegador/CDN sirva el PDF anterior en caché.
-  return `${data.publicUrl}?v=${Date.now()}`;
+  // getPublicUrl con `download` ya devuelve una URL con `?download=cv.pdf`, así que
+  // usamos URLSearchParams en vez de concatenar un `?v=` que rompería la query string.
+  const url = new URL(data.publicUrl);
+  url.searchParams.set('v', Date.now());
+  return url.toString();
 }
 
 export function deletePortfolioCv(userId, portfolioId) {

@@ -90,7 +90,11 @@ export default function DashboardPage() {
 
           <div className="dash-stats">
             <StatCard label="Portfolios activos" value={portfolios.length} />
-            <StatCard label="Vistas totales" value={totalViews} />
+            <StatCard
+              label="Vistas totales (histórico)"
+              value={totalViews}
+              hint="Antes de activar analytics por portfolio"
+            />
           </div>
 
           {loading && <p className="adm-empty">Cargando…</p>}
