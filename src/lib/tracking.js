@@ -21,23 +21,25 @@ export function getDeviceType() {
 }
 
 export function trackEvent(portfolioId, eventType, extra = {}) {
-  const payload = {
-    portfolio_id: portfolioId,
-    event_type: eventType,
-    session_id: getOrCreateSessionId(portfolioId),
-    referrer: document.referrer || null,
-    ...extra,
-  };
-  const url = getFunctionsUrl();
-  const body = JSON.stringify(payload);
-  if (eventType === 'session_end' && navigator.sendBeacon) {
-    navigator.sendBeacon(url, new Blob([body], { type: 'application/json' }));
-    return;
-  }
-  fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body,
-    keepalive: true,
-  }).catch(() => {});
+  try {
+    const payload = {
+      portfolio_id: portfolioId,
+      event_type: eventType,
+      session_id: getOrCreateSessionId(portfolioId),
+      referrer: document.referrer || null,
+      ...extra,
+    };
+    const url = getFunctionsUrl();
+    const body = JSON.stringify(payload);
+    if (eventType === 'session_end' && navigator.sendBeacon) {
+      navigator.sendBeacon(url, new Blob([body], { type: 'application/json' }));
+      return;
+    }
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body,
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
 }
