@@ -1,10 +1,12 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Layers, Palette, ExternalLink, ArrowLeft, Share2 } from 'lucide-react';
+import { Layers, Palette, LayoutTemplate, ExternalLink, ArrowLeft, Share2 } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import SectionsContentTab from '../components/admin/SectionsContentTab.jsx';
 import DesignTab from '../components/admin/DesignTab.jsx';
+import TemplatesTab from '../components/admin/TemplatesTab.jsx';
+import { TEMPLATES } from '../data/templates.js';
 import PreviewTab from '../components/admin/PreviewTab.jsx';
 import PublishModal from '../components/admin/PublishModal.jsx';
 import ThemeToggle from '../components/admin/ThemeToggle.jsx';
@@ -129,6 +131,22 @@ export default function EditorPage() {
     setPortfolio((p) => ({ ...p, sections: p.sections.map((s) => (s.id === sectionId ? { ...s, variant } : s)) }));
   }, []);
   const setTheme = useCallback((theme) => setPortfolio((p) => ({ ...p, theme })), []);
+  const applyTemplate = useCallback((templateId) => {
+    setPortfolio((p) => ({
+      ...p,
+      design: { template: templateId, accent: { preset: 'default' }, font: { preset: 'default' } },
+      sections: p.sections.map((s) => {
+        const defaultVariant = TEMPLATES[templateId].defaultVariants[s.type];
+        return defaultVariant ? { ...s, variant: defaultVariant } : s;
+      }),
+    }));
+  }, []);
+  const setAccent = useCallback((accent) => {
+    setPortfolio((p) => ({ ...p, design: { ...p.design, accent } }));
+  }, []);
+  const setFont = useCallback((font) => {
+    setPortfolio((p) => ({ ...p, design: { ...p.design, font } }));
+  }, []);
   const startEditingTitle = () => {
     setTitleDraft(portfolio.title);
     setEditingTitle(true);
@@ -216,6 +234,9 @@ export default function EditorPage() {
       <div className="adm-studio-body">
         <aside className="adm-studio-sidebar">
           <nav className="adm-studio-subtabs">
+            <button className={sidebarTab === 'templates' ? 'is-active' : ''} onClick={() => setSidebarTab('templates')}>
+              <LayoutTemplate size={14} /> Plantillas
+            </button>
             <button className={sidebarTab === 'sections' ? 'is-active' : ''} onClick={() => setSidebarTab('sections')}>
               <Layers size={14} /> Secciones
             </button>
@@ -223,6 +244,15 @@ export default function EditorPage() {
               <Palette size={14} /> Diseño
             </button>
           </nav>
+          {sidebarTab === 'templates' && (
+            <TemplatesTab
+              design={portfolio.design}
+              theme={portfolio.theme}
+              onApplyTemplate={applyTemplate}
+              onAccentChange={setAccent}
+              onFontChange={setFont}
+            />
+          )}
           {sidebarTab === 'sections' && (
             <SectionsContentTab
               sections={portfolio.sections}

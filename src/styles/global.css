@@ -897,3 +897,41 @@ html[data-admin-theme="dark"] .adm-share-dot { background: #7FCB9E; }
 @media (prefers-reduced-motion: reduce) {
   .adm-shell *, .pf-scope * { transition: none !important; animation: none !important; }
 }
+
+/* ---------- Plantillas ---------- */
+.adm-template-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 26px; }
+.adm-template-card {
+  display: flex; flex-direction: column; gap: 8px; text-align: left; border: 1px solid var(--a-border);
+  background: var(--a-panel); border-radius: 10px; padding: 10px; cursor: pointer; font-family: var(--font-body);
+  color: var(--a-text); position: relative;
+}
+.adm-template-card.is-active { border-color: var(--a-accent); background: #FBF0EA; }
+.adm-template-preview {
+  height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; overflow: hidden;
+}
+.adm-template-preview-name { font-size: 16px; font-weight: 600; }
+.adm-template-preview-role { font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+.adm-template-card-title { font-size: 13px; font-weight: 600; }
+.adm-template-card-desc { font-size: 11.5px; color: var(--a-muted); line-height: 1.4; }
+.adm-template-card-badge {
+  position: absolute; top: 8px; right: 8px; font-family: var(--font-mono); font-size: 9.5px;
+  text-transform: uppercase; letter-spacing: 0.03em; color: #2E7A52; background: #E3F1E8;
+  padding: 2px 7px; border-radius: 999px;
+}
+
+.adm-swatch-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.adm-swatch {
+  width: 26px; height: 26px; border-radius: 50%; border: 2px solid transparent; cursor: pointer;
+  padding: 0; box-shadow: 0 0 0 1px var(--a-border);
+}
+.adm-swatch.is-active { border-color: var(--a-panel); box-shadow: 0 0 0 2px var(--a-accent); }
+.adm-swatch-custom {
+  background: var(--a-bg); display: flex; align-items: center; justify-content: center;
+  color: var(--a-muted); font-size: 14px; border: 1px dashed var(--a-border); box-shadow: none;
+}
+.adm-swatch-color-input { width: 30px; height: 30px; padding: 0; border: none; background: none; cursor: pointer; }
+.adm-custom-font-row { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.adm-custom-font-row .adm-field { flex: 1; min-width: 160px; }
+
+html[data-admin-theme="dark"] .adm-template-card.is-active { background: #2A211C; }
