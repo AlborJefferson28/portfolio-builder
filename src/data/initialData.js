@@ -35,6 +35,7 @@ export function getInitialData() {
         id: 'contact', type: 'contact', enabled: true, variant: 'default',
         content: {
           email: '',
+          cvUrl: '',
           links: [
             { id: uid(), label: 'GitHub', url: '' },
             { id: uid(), label: 'LinkedIn', url: '' },
