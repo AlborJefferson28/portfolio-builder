@@ -1,6 +1,6 @@
 import { getImageFrameStyle } from '../../utils/imageFrameStyle.js';
 
-export default function ProjectsGrid({ content }) {
+export default function ProjectsGrid({ content, onTrack = () => {} }) {
   return (
     <section className="pf-section pf-projects">
       <p className="pf-eyebrow">// proyectos</p>
@@ -30,7 +30,17 @@ export default function ProjectsGrid({ content }) {
                   ))}
                 </div>
               )}
-              {p.url && <a className="pf-project-link" href={p.url} target="_blank" rel="noreferrer">Ver proyecto →</a>}
+              {p.url && (
+                <a
+                  className="pf-project-link"
+                  href={p.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => onTrack('project_click', { target_id: p.id, target_label: p.title || 'Proyecto' })}
+                >
+                  Ver proyecto →
+                </a>
+              )}
             </article>
           );
         })}
