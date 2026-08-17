@@ -809,6 +809,12 @@ html, body { margin: 0; padding: 0; }
   text-decoration: none; display: inline-block; margin-bottom: 24px; word-break: break-word;
 }
 .pf-contact-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.pf-cv-download {
+  display: inline-block; font-family: var(--font-mono); font-size: 13px; padding: 9px 16px;
+  border-radius: 999px; border: 1px solid var(--p-accent); color: var(--p-accent); text-decoration: none;
+  margin-top: 10px;
+}
+.pf-cv-download:hover { background: var(--p-accent-soft); }
 .pf-contact-link { font-family: var(--font-mono); font-size: 13px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--p-border); color: var(--p-text); text-decoration: none; }
 .pf-contact-link:hover { border-color: var(--p-accent); color: var(--p-accent); }
 
