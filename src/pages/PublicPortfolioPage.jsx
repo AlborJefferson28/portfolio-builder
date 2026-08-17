@@ -33,8 +33,12 @@ export default function PublicPortfolioPage() {
       const isOwnerView = userId === data.user_id;
       const viewedKey = `pb-viewed-${data.id}`;
       if (!isOwnerView && !sessionStorage.getItem(viewedKey)) {
-        sessionStorage.setItem(viewedKey, '1');
-        supabase.rpc('increment_portfolio_views', { portfolio_id: data.id });
+        const { error: viewError } = await supabase.rpc('increment_portfolio_views', { portfolio_id: data.id });
+        if (viewError) {
+          console.error('No se pudo registrar la vista del portfolio:', viewError);
+        } else {
+          sessionStorage.setItem(viewedKey, '1');
+        }
       }
     })();
     return () => { cancelled = true; };
