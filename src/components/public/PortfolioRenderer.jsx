@@ -1,6 +1,6 @@
 import { SECTION_COMPONENTS } from './sectionComponents.js';
 
-export default function PortfolioRenderer({ sections, theme }) {
+export default function PortfolioRenderer({ sections, theme, onTrack }) {
   const active = sections.filter((s) => s.enabled);
   return (
     <div className="pf-scope" data-theme={theme}>
@@ -13,7 +13,7 @@ export default function PortfolioRenderer({ sections, theme }) {
         {active.map((section) => {
           const variants = SECTION_COMPONENTS[section.type];
           const Comp = variants ? (variants[section.variant] || Object.values(variants)[0]) : null;
-          return Comp ? <Comp key={section.id} content={section.content} /> : null;
+          return Comp ? <Comp key={section.id} content={section.content} onTrack={onTrack} /> : null;
         })}
         <footer className="pf-colophon">
           <p>Tipografía: Fraunces · Inter · JetBrains Mono</p>
