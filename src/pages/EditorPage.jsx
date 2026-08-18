@@ -7,6 +7,7 @@ import SectionsContentTab from '../components/admin/SectionsContentTab.jsx';
 import DesignTab from '../components/admin/DesignTab.jsx';
 import TemplatesTab from '../components/admin/TemplatesTab.jsx';
 import { TEMPLATES } from '../data/templates.js';
+import { applyTemplateVariants } from '../utils/applyTemplateVariants.js';
 import PreviewTab from '../components/admin/PreviewTab.jsx';
 import PublishModal from '../components/admin/PublishModal.jsx';
 import ThemeToggle from '../components/admin/ThemeToggle.jsx';
@@ -135,10 +136,7 @@ export default function EditorPage() {
     setPortfolio((p) => ({
       ...p,
       design: { template: templateId, accent: { preset: 'default' }, font: { preset: 'default' } },
-      sections: p.sections.map((s) => {
-        const defaultVariant = TEMPLATES[templateId].defaultVariants[s.type];
-        return defaultVariant ? { ...s, variant: defaultVariant } : s;
-      }),
+      sections: applyTemplateVariants(p.sections, TEMPLATES[templateId]),
     }));
   }, []);
   const setAccent = useCallback((accent) => {

@@ -7,6 +7,7 @@ import { getInitialData } from '../data/initialData.js';
 import ThemeToggle from '../components/admin/ThemeToggle.jsx';
 import AppSidebar from '../components/admin/AppSidebar.jsx';
 import StatCard from '../components/admin/StatCard.jsx';
+import DeleteConfirmModal from '../components/admin/DeleteConfirmModal.jsx';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -15,6 +16,8 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState('');
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -52,11 +55,16 @@ export default function DashboardPage() {
     if (error) setError('No se pudo crear el portfolio.');
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('¿Eliminar este portfolio? Esta acción no se puede deshacer.')) return;
+  const handleDeleteConfirm = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
     setError('');
-    const { data, error } = await supabase.from('portfolios').delete().eq('id', id).select('id');
-    if (!error && data && data.length > 0) setPortfolios((prev) => prev.filter((p) => p.id !== id));
+    const { data, error } = await supabase.from('portfolios').delete().eq('id', deleteTarget.id).select('id');
+    setDeleting(false);
+    if (!error && data && data.length > 0) {
+      setPortfolios((prev) => prev.filter((p) => p.id !== deleteTarget.id));
+      setDeleteTarget(null);
+    }
     if (error || !data || data.length === 0) setError('No se pudo eliminar el portfolio.');
   };
 
@@ -123,7 +131,7 @@ export default function DashboardPage() {
                       <ExternalLink size={14} />
                     </a>
                   )}
-                  <button type="button" className="adm-btn-ghost" onClick={() => handleDelete(p.id)} aria-label="Eliminar">
+                  <button type="button" className="adm-btn-ghost" onClick={() => setDeleteTarget(p)} aria-label="Eliminar">
                     <Trash2 size={14} />
                   </button>
                 </div>
@@ -132,6 +140,13 @@ export default function DashboardPage() {
           </div>
         </main>
       </div>
+      <DeleteConfirmModal
+        open={deleteTarget !== null}
+        title={deleteTarget ? deleteTarget.title : ''}
+        deleting={deleting}
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setDeleteTarget(null)}
+      />
     </div>
   );
 }

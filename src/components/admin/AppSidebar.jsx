@@ -1,11 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, FolderKanban, BarChart3, LayoutTemplate, Settings } from 'lucide-react';
+import { LayoutDashboard, BarChart3, LayoutTemplate, Settings } from 'lucide-react';
 
 const NAV_ITEMS = [
   { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard', enabled: true },
-  { key: 'portfolios', label: 'Portfolios', icon: FolderKanban, enabled: false },
   { key: 'analytics', label: 'Analytics', icon: BarChart3, to: '/analytics', enabled: true },
-  { key: 'templates', label: 'Templates', icon: LayoutTemplate, enabled: false },
+  { key: 'templates', label: 'Templates', icon: LayoutTemplate, to: '/templates', enabled: true },
   { key: 'settings', label: 'Settings', icon: Settings, enabled: false },
 ];
 

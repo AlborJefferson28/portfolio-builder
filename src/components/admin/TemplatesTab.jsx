@@ -2,31 +2,10 @@ import { useState } from 'react';
 import { TEMPLATES } from '../../data/templates.js';
 import { CUSTOM_FONTS } from '../../data/customFonts.js';
 import TemplateSwitchModal from './TemplateSwitchModal.jsx';
+import TemplateMiniPreview from './TemplateMiniPreview.jsx';
 
 const TEMPLATE_IDS = Object.keys(TEMPLATES);
 const DEFAULT_CUSTOM_COLOR = '#D97757';
-
-function TemplateMiniPreview({ template, theme }) {
-  const palette = template.palette[theme];
-  const accent = template.accentPresets.default[theme];
-  const font = template.fontPairs.default;
-  return (
-    <div className="adm-template-preview" style={{ background: palette.bg, borderRadius: template.radius }}>
-      <span
-        className="adm-template-preview-name"
-        style={{ fontFamily: `"${font.display}", serif`, fontStyle: template.displayStyle || 'normal', color: palette.text }}
-      >
-        Ana Torres
-      </span>
-      <span
-        className="adm-template-preview-role"
-        style={{ fontFamily: `"${font.mono || 'JetBrains Mono'}", monospace`, color: accent.accent }}
-      >
-        Product Designer
-      </span>
-    </div>
-  );
-}
 
 export default function TemplatesTab({ design, theme, onApplyTemplate, onAccentChange, onFontChange }) {
   const [pendingTemplateId, setPendingTemplateId] = useState(null);
