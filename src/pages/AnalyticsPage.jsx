@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip,
   PieChart, Pie, Cell,
@@ -10,6 +9,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import ThemeToggle from '../components/admin/ThemeToggle.jsx';
 import AppSidebar from '../components/admin/AppSidebar.jsx';
 import StatCard from '../components/admin/StatCard.jsx';
+import CountryChoroplethMap from '../components/analytics/CountryChoroplethMap.jsx';
 
 const RANGE_OPTIONS = [
   { label: '7 días', value: 7 },
@@ -30,7 +30,8 @@ export default function AnalyticsPage() {
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [portfolio, setPortfolio] = useState(null);
+  const [portfolios, setPortfolios] = useState([]);
+  const [portfolioTitle, setPortfolioTitle] = useState('');
   const [loadState, setLoadState] = useState('loading');
   const [days, setDays] = useState(30);
   const [overview, setOverview] = useState(null);
@@ -39,24 +40,36 @@ export default function AnalyticsPage() {
   const [topProjects, setTopProjects] = useState([]);
   const [referrers, setReferrers] = useState([]);
   const [geo, setGeo] = useState([]);
+  const [geoMap, setGeoMap] = useState([]);
   const [devices, setDevices] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
     let cancelled = false;
+    setLoadState('loading');
     (async () => {
       const { data, error } = await supabase
         .from('portfolios')
-        .select('id, title')
-        .eq('id', id)
+        .select('id, title, slug')
         .eq('user_id', user.id)
-        .single();
+        .eq('published', true)
+        .order('updated_at', { ascending: false });
       if (cancelled) return;
-      if (error || !data) {
-        navigate('/dashboard', { replace: true });
+      if (error) {
+        setLoadState('ready');
         return;
       }
-      setPortfolio(data);
+      setPortfolios(data);
+      if (id) {
+        const current = data.find((p) => p.id === id);
+        if (!current) {
+          navigate('/analytics', { replace: true });
+          return;
+        }
+        setPortfolioTitle(current.title);
+      } else {
+        setPortfolioTitle('Todos los portfolios');
+      }
       setLoadState('ready');
     })();
     return () => { cancelled = true; };
@@ -65,15 +78,16 @@ export default function AnalyticsPage() {
   const fetchStats = useCallback(async () => {
     setError('');
     const [
-      overviewRes, trendRes, funnelRes, topProjectsRes, referrersRes, geoRes, devicesRes,
+      overviewRes, trendRes, funnelRes, topProjectsRes, referrersRes, geoRes, geoMapRes, devicesRes,
     ] = await Promise.all([
-      supabase.rpc('get_portfolio_overview', { p_portfolio_id: id, p_days: days }),
-      supabase.rpc('get_portfolio_daily_trend', { p_portfolio_id: id, p_days: days }),
-      supabase.rpc('get_portfolio_funnel', { p_portfolio_id: id, p_days: days }),
-      supabase.rpc('get_portfolio_top_projects', { p_portfolio_id: id, p_days: days }),
-      supabase.rpc('get_portfolio_referrers', { p_portfolio_id: id, p_days: days }),
-      supabase.rpc('get_portfolio_geo', { p_portfolio_id: id, p_days: days }),
-      supabase.rpc('get_portfolio_devices', { p_portfolio_id: id, p_days: days }),
+      supabase.rpc('get_portfolio_overview', { p_portfolio_id: id || null, p_days: days }),
+      supabase.rpc('get_portfolio_daily_trend', { p_portfolio_id: id || null, p_days: days }),
+      supabase.rpc('get_portfolio_funnel', { p_portfolio_id: id || null, p_days: days }),
+      supabase.rpc('get_portfolio_top_projects', { p_portfolio_id: id || null, p_days: days }),
+      supabase.rpc('get_portfolio_referrers', { p_portfolio_id: id || null, p_days: days }),
+      supabase.rpc('get_portfolio_geo', { p_portfolio_id: id || null, p_days: days }),
+      supabase.rpc('get_portfolio_geo_map', { p_portfolio_id: id || null, p_days: days }),
+      supabase.rpc('get_portfolio_devices', { p_portfolio_id: id || null, p_days: days }),
     ]);
     const anyError = [overviewRes, trendRes, funnelRes, topProjectsRes, referrersRes, geoRes, devicesRes]
       .some((r) => r.error);
@@ -84,6 +98,7 @@ export default function AnalyticsPage() {
     setTopProjects(topProjectsRes.data || []);
     setReferrers(referrersRes.data || []);
     setGeo(geoRes.data || []);
+    setGeoMap(geoMapRes.error ? [] : (geoMapRes.data || []));
     setDevices(devicesRes.data || []);
   }, [id, days]);
 
@@ -96,6 +111,7 @@ export default function AnalyticsPage() {
   const totalViews = overview ? Number(overview.total_views) : 0;
   const isEmpty = totalViews === 0;
   const funnelMax = funnel.reduce((max, f) => Math.max(max, Number(f.sessions)), 0) || 1;
+  const noPortfolios = portfolios.length === 0;
 
   return (
     <div className="dash-shell adm-shell">
@@ -105,28 +121,43 @@ export default function AnalyticsPage() {
           <ThemeToggle />
         </header>
         <main className="dash-main an-main">
-          <Link to="/dashboard" className="adm-btn-ghost"><ArrowLeft size={14} /> Volver al panel</Link>
           <div className="dash-main-head">
             <div>
-              <h1 className="adm-panel-title">Analytics — {portfolio.title}</h1>
-              <p className="adm-panel-desc">Métricas de visitas de tu portfolio publicado.</p>
+              <h1 className="adm-panel-title">Analytics — {portfolioTitle}</h1>
+              <p className="adm-panel-desc">Métricas de visitas de tus portfolios publicados.</p>
             </div>
-            <div className="adm-segmented">
-              {RANGE_OPTIONS.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  className={days === opt.value ? 'is-active' : ''}
-                  onClick={() => setDays(opt.value)}
+            {!noPortfolios && (
+              <div className="an-filters">
+                <select
+                  className="adm-input an-portfolio-select"
+                  value={id || ''}
+                  onChange={(e) => navigate(e.target.value ? `/analytics/${e.target.value}` : '/analytics')}
                 >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+                  <option value="">Todos los portfolios</option>
+                  {portfolios.map((p) => (
+                    <option key={p.id} value={p.id}>{p.title}</option>
+                  ))}
+                </select>
+                <div className="adm-segmented">
+                  {RANGE_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      className={days === opt.value ? 'is-active' : ''}
+                      onClick={() => setDays(opt.value)}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           {error && <p className="adm-error">{error}</p>}
 
-          {isEmpty ? (
+          {noPortfolios ? (
+            <p className="adm-empty" style={{ marginTop: 20 }}>Todavía no tienes portfolios publicados. Publica uno desde el Dashboard para ver sus métricas aquí.</p>
+          ) : isEmpty ? (
             <p className="adm-empty" style={{ marginTop: 20 }}>Todavía no hay datos para este rango.</p>
           ) : (
             <>
@@ -210,6 +241,7 @@ export default function AnalyticsPage() {
                 </div>
                 <div className="an-panel">
                   <h2 className="an-panel-title">Países</h2>
+                  <CountryChoroplethMap geoMap={geoMap} />
                   {geo.length === 0 ? <p className="adm-empty">Sin datos todavía.</p> : (
                     <ul className="an-list">
                       {geo.map((g) => (
